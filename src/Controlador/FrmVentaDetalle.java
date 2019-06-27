@@ -47,6 +47,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         btnNuevo.setEnabled(false);
         btnCalcular.setEnabled(false);
+        
         DetallesFormVenta();
        
         txtDescuento.setFocusAccelerator('u');
@@ -56,6 +57,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtCod_producto.setFocusAccelerator('p');
 
         OcultaBotones();
+        
         Calendar c2 = new GregorianCalendar();
         dcFecha_venta.setCalendar(c2);
         txtStockDetalle.setVisible(false);
@@ -1402,7 +1404,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         DecimalFormat formatea = new DecimalFormat("###,###.##");
 
         if (txtImporte.getText().length() == 0) {
-            JOptionPane.showMessageDialog(null, "Ingrese un Monto ");
+            JOptionPane.showMessageDialog(null, "Ingrese un Valor ");
             txtImporte.setText("");
             txtImporte.requestFocus();
             return;
@@ -1421,7 +1423,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             String cambio1 = formatea.format(cambio);
             txtCambio.setText(String.valueOf(cambio1));
 
-            JOptionPane.showMessageDialog(rootPane, "Vuelto : " + cambio1);
+            JOptionPane.showMessageDialog(rootPane, "Devuelta : " + cambio1);
             Fventa funcion = new Fventa();
             Dventa datos = new Dventa();
             //datos.setPago(Long.parseLong(txtImporte.getText()));
@@ -1450,6 +1452,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                 }
             } else if (cboComprobante.getSelectedItem().equals("Boleta")) {
                 try {
+                    
                     int codigo = Integer.parseInt(txtCod_venta.getText());
 
                     JasperReport jr = (JasperReport) JRLoader.loadObject(VistaBoleta.class.getResource("/Reportes/RptBoleta.jasper"));
@@ -1464,7 +1467,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                     // JasperPrintManager.printReport( jp, true);
                     btnNuevo.setEnabled(true);
                 } catch (Exception e) {
-
                     JOptionPane.showMessageDialog(rootPane, "error" + e);
                 }
 

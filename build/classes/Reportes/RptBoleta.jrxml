@@ -238,14 +238,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Nombre Negocio/ direccion]]></text>
+				<text><![CDATA[ Miscelanea ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="SubTitle" x="0" y="56" width="160" height="14" uuid="44bd198a-5004-4f6e-a718-f6c0c5ec6a14"/>
 				<textElement textAlignment="Center">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Rut  00.000.000-0]]></text>
+				<text><![CDATA[Rut RUT]]></text>
 			</staticText>
 		</band>
 	</title>
