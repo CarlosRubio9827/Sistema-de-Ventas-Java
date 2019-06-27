@@ -192,9 +192,9 @@ public class FrmVistaProducto extends javax.swing.JInternalFrame {
 
             cod = jTabla.getValueAt(fila, 0).toString();
             nombre = jTabla.getValueAt(fila, 1).toString();
-            precio = jTabla.getValueAt(fila, 4).toString();
-            stock = jTabla.getValueAt(fila, 5).toString();
-            precio_compra = jTabla.getValueAt(fila, 6).toString();
+            precio = jTabla.getValueAt(fila, 3).toString();
+            stock = jTabla.getValueAt(fila, 4).toString();
+            precio_compra = jTabla.getValueAt(fila, 5).toString();
 
             
             if (comprobarProducto == 2) {

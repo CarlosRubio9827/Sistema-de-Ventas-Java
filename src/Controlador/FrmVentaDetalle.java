@@ -48,8 +48,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         btnNuevo.setEnabled(false);
         btnCalcular.setEnabled(false);
         DetallesFormVenta();
-        lblModo.setLabelFor(cboModoIngreso);
-        lblModo.setDisplayedMnemonic('y');
+       
         txtDescuento.setFocusAccelerator('u');
         txtImporte.setFocusAccelerator('i');
 
@@ -161,17 +160,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
             long precio_compra = funcion.selectPrecioCompra();
             txtSubPrecioCompra.setText(String.valueOf(precio_compra));
-
-            if (cboModoIngreso.getSelectedItem() == "x Mayor") {
-                txtCantidadProducto.setEditable(true);
-                txtCantidadProducto.setText("");
-                txtCod_producto.setEditable(false);
-                foco = 1;
-            } else if (cboModoIngreso.getSelectedItem() == "x Unidad") {
-
-                foco = 0;
-                insertarDetalle();
-            }
 
         } else {
             JOptionPane.showMessageDialog(null, "No existe el codigo en el sistema");
@@ -374,8 +362,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         btnAgregarProducto = new javax.swing.JButton();
         btnbuscarProducto = new javax.swing.JButton();
         btnQuitarProducto = new javax.swing.JButton();
-        cboModoIngreso = new javax.swing.JComboBox<>();
-        lblModo = new javax.swing.JLabel();
         txtCod_cliente = new javax.swing.JTextField();
         txtCod_usuario = new javax.swing.JTextField();
         txtCod_ventaFK = new javax.swing.JTextField();
@@ -887,21 +873,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             }
         });
 
-        cboModoIngreso.setBackground(new java.awt.Color(36, 33, 33));
-        cboModoIngreso.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cboModoIngreso.setForeground(new java.awt.Color(207, 207, 207));
-        cboModoIngreso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "x Unidad", "x Mayor" }));
-        cboModoIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboModoIngresoActionPerformed(evt);
-            }
-        });
-
-        lblModo.setBackground(new java.awt.Color(255, 255, 255));
-        lblModo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblModo.setForeground(new java.awt.Color(207, 207, 207));
-        lblModo.setText("Modo :");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -910,20 +881,13 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblModo, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(cboModoIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 304, Short.MAX_VALUE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtCod_producto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCantidadProducto)))
+                        .addComponent(txtCod_producto, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCantidadProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                         .addGap(3, 3, 3))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel12)
@@ -944,10 +908,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnbuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboModoIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblModo))
+                .addComponent(btnbuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1298,7 +1259,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             limpiarProductosDetalle();
             txtPrecio_producto.setEditable(false);
             txtCantidadProducto.setText("1");
-            cboModoIngreso.setSelectedIndex(0);
             txtCod_producto.setEditable(true);
             txtCod_producto.requestFocus();
             txtCantidadProducto.setEditable(false);
@@ -1598,27 +1558,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
-    private void cboModoIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboModoIngresoActionPerformed
-
-        if (cboModoIngreso.getSelectedItem() == "x Mayor") {
-            txtCantidadProducto.setText("0");
-            txtCantidadProducto.setEditable(false);
-            txtNombre_producto.setEditable(false);
-            txtStockDetalle.setEditable(false);
-            txtPrecio_producto.setEditable(false);
-            txtCod_producto.setEditable(true);
-            txtCod_producto.requestFocus();
-        } else if (cboModoIngreso.getSelectedItem() == "x Unidad") {
-            txtCantidadProducto.setText("1");
-            txtCod_producto.setEditable(true);
-            txtCantidadProducto.setEditable(false);
-            txtNombre_producto.setEditable(false);
-            txtStockDetalle.setEditable(false);
-            txtPrecio_producto.setEditable(false);
-            txtCod_producto.requestFocus();
-        }
-    }//GEN-LAST:event_cboModoIngresoActionPerformed
-
     private void txtCantidadProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProductoKeyTyped
         char c = evt.getKeyChar();
         if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
@@ -1709,7 +1648,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnQuitarProducto;
     private javax.swing.JButton btnbuscarProducto;
     private javax.swing.JComboBox<String> cboComprobante;
-    private javax.swing.JComboBox<String> cboModoIngreso;
     private com.toedter.calendar.JDateChooser dcFecha_venta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1738,7 +1676,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTabla;
-    private javax.swing.JLabel lblModo;
     private javax.swing.JTextField txtCambio;
     public static javax.swing.JTextField txtCantidadProducto;
     public static javax.swing.JTextField txtCod_cliente;

@@ -1,0 +1,16 @@
+Se encuentran 2 clases llamadas CONEXION a las cuales deben modificar la pass segun su mysql
+
+
+SistemaDeVentas :
+	Funciones:
+		Conexion: 
+                      public String db = "bdcontroldeventas";// No cambiar 
+                      public String url = "jdbc:mysql://127.0.0.1/" + db;
+                      public String user = "root";// Cambiar a la suya (por defecto es root)
+                      public String pass = "root"; // deben cambiar su clave que utilicen en el mysql si no utilizan dejar ""
+	FuncionesMINI:
+		Conexion: 
+                      public String db = "bdcontroldeventas";// No cambiar 
+                      public String url = "jdbc:mysql://127.0.0.1/" + db;
+                      public String user = "root";// Cambiar a la suya (por defecto es root)
+                      public String pass = "root"; // deben cambiar su clave que utilicen en el mysql  si no utilizan dejar ""
