@@ -6,7 +6,10 @@ import Datos.Dusuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -208,6 +211,32 @@ public class Fusuario {
     /**
      * ***************************************************************
      */
+    public String obetnerAcceso(String login, String password){
+        
+        try {
+            sSQL = "select p.cod_persona , p.nombre_persona , p.direccion ,"
+                    + "p.telefono , p.email , u.login , u.password , u.estado ,"
+                    + "u.acceso from persona p inner join usuario "
+                    + " u on p.cod_persona = u.cod_usuario where u.login ='" + login + "' "
+                    + " and u.password ='" + password + "' and estado = 'Activo'";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            String rr = "";
+            while (rs.next()) {
+                rr = rs.getString("acceso");
+         
+                }
+            
+            return rr;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fusuario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
+    
     public DefaultTableModel login(String login, String password) {
         DefaultTableModel modelo;
 

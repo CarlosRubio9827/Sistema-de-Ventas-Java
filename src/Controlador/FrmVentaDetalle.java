@@ -5,6 +5,7 @@ import static Controlador.FrmVistaProducto.comprobarProducto;
 import static Controlador.FrmVistacliente.Comprueba;
 import Datos.Ddetalle_venta;
 import Datos.Dproducto;
+import Datos.Dusuario;
 import Datos.Dventa;
 import Funciones.Fdetalle_venta;
 import Funciones.Fproducto;
@@ -40,11 +41,14 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     int foco;
     private conexion mysql = new conexion();
     private Connection cn = mysql.conectar();
-
+    
+  
+    
     public FrmVentaDetalle() {
         initComponents();
         //btnGuardar.setMnemonic(KeyEvent.VK_X);
-
+        //obtenerAcceso(s);
+ 
         btnNuevo.setEnabled(false);
         btnCalcular.setEnabled(false);
         
@@ -96,6 +100,12 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                 return l;
             }
         });
+    }
+    
+    public void obtenerAcceso(String s){
+        if (s.equalsIgnoreCase("UsuarioC")){
+            txtDescuento.setEnabled(false);
+        }
     }
 
     public void ocultar_columnas() {
@@ -653,6 +663,11 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtDescuento.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtDescuento.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDescuento.setVerifyInputWhenFocusTarget(false);
+        txtDescuento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescuentoActionPerformed(evt);
+            }
+        });
         txtDescuento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDescuentoKeyTyped(evt);
@@ -1593,6 +1608,10 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_txtNombre_productoActionPerformed
 
+    private void txtDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescuentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescuentoActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1631,9 +1650,10 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-
+ 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FrmVentaDetalle().setVisible(true);
             }
