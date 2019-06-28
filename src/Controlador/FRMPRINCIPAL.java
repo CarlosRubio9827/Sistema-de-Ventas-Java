@@ -26,6 +26,7 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
 
     private conexion mysql = new conexion();
     private Connection cn = mysql.conectar();
+    private String tipoAc = "";
 
     public FRMPRINCIPAL() {
 
@@ -55,10 +56,16 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
 
         //jmIVentas.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
     }
+    
+    public void tipoAc(String s){
+        this.tipoAc = s;
+    }
 
     public void abrirVenta() {
+        
 
         FrmVentaDetalle form = new FrmVentaDetalle();
+        form.obtenerAcceso(this.tipoAc);
         deskPricipal.add(form);
 
         //   form.setMaximizable(true);

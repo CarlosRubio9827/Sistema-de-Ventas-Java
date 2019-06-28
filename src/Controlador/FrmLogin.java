@@ -244,6 +244,7 @@ public class FrmLogin extends javax.swing.JFrame {
             if (func.totalRegistros > 0) {
                 this.dispose();
                 FRMPRINCIPAL form = new FRMPRINCIPAL();
+                form.tipoAc(tipoAcceso);
                 form.toFront();
                 form.setVisible(true);
                 FRMPRINCIPAL.lblCod_persona.setText(tablalistado.getValueAt(0, 0).toString());
