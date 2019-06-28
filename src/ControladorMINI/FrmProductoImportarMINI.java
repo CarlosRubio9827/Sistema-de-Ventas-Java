@@ -269,8 +269,8 @@ public class FrmProductoImportarMINI extends javax.swing.JInternalFrame {
             protected Object doInBackground() throws Exception {
                 int cantidad = 0;
                 try {
-                    if (datos.getColumnCount() > 7 || datos.getColumnCount() < 7) {
-                        JOptionPane.showMessageDialog(rootPane, "El archivo excel debe tener las columnas : codigo-nombre-descripcion-unidad-precio venta-stock-precio compra ");
+                    if (datos.getColumnCount() > 6 || datos.getColumnCount() < 6) {
+                        JOptionPane.showMessageDialog(rootPane, "El archivo excel debe tener las columnas : codigo-nombre-descripcion-precio venta-stock-precio compra ");
                         model = new DefaultTableModel();
                         datos.setModel(model);
                         return null;
@@ -285,15 +285,14 @@ public class FrmProductoImportarMINI extends javax.swing.JInternalFrame {
                     if (datos.getRowCount() > 0) {
                         for (int i = 0; i < datos.getRowCount(); i++) {
                             sSQL = "insert into productostock (cod_producto , nombre_producto,descripcion_producto"
-                                    + ", unidad_producto , precio_producto,stock_producto,precio_compra) "
+                                    + ", precio_producto,stock_producto,precio_compra) "
                                     + " values('"
                                     + datos.getValueAt(i, 0)
                                     + "','" + datos.getValueAt(i, 1)
                                     + "','" + datos.getValueAt(i, 2)
                                     + "','" + datos.getValueAt(i, 3)
                                     + "','" + datos.getValueAt(i, 4)
-                                    + "','" + datos.getValueAt(i, 5)
-                                    + "','" + datos.getValueAt(i, 6) + "')";
+                                    + "','" + datos.getValueAt(i, 5) + "')";
                             //   System.out.println(sSQL);
                             PreparedStatement pst = cn.prepareStatement(sSQL);
                             pst.executeUpdate(sSQL);

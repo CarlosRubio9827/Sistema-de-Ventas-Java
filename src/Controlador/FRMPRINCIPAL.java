@@ -6,6 +6,7 @@ import Funciones.conexion;
 import Reportes.ReportHistorial;
 import Reportes.frmStockCritico;
 import java.awt.Graphics;
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicDesktopPaneUI;
 import javax.swing.plaf.basic.BasicMenuBarUI;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -463,7 +465,13 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5ActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        this.dispose();
+
+        if (JOptionPane.showConfirmDialog(null, "¿Quieres salir del sistema?", "Aviso",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            this.dispose();
+            FrmLogin a1 = new FrmLogin();
+            a1.setVisible(true);
+        } 
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void MenuProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuProductosMouseClicked
@@ -520,7 +528,8 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         form.setIconifiable(true);
         try {
             form.setMaximum(true);
-        } catch (Exception e) {
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
         form.toFront();
@@ -556,7 +565,7 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
             form.setMaximum(true);
             form.setClosable(true);
             form.setIconifiable(true);
-        } catch (Exception e) {
+        } catch (PropertyVetoException e) {
             JOptionPane.showMessageDialog(null, "ERROR ");
         }
 
@@ -586,9 +595,9 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
             jv.show();
 
             // JasperPrintManager.printReport( jp, true);
-        } catch (Exception e) {
+        } catch (JRException e) {
 
-            JOptionPane.showMessageDialog(rootPane, "error" + e);
+            JOptionPane.showMessageDialog(rootPane, "error" + e.getMessage());
         }
 
 
@@ -713,10 +722,9 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
     }//GEN-LAST:event_JmIStock1ActionPerformed
 
     private void JmIControlInvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmIControlInvActionPerformed
-        
+
         FrmPrincipalMINI form = new FrmPrincipalMINI();
-        
-  
+
         this.setLocationRelativeTo(null);
         form.toFront();
         form.setVisible(true);
@@ -725,10 +733,10 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
     }//GEN-LAST:event_JmIControlInvActionPerformed
 
     private void JmIVentasPorCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmIVentasPorCategoriasActionPerformed
-     
-       rptVentasPorCategorias form = new rptVentasPorCategorias();
-       
-       deskPricipal.add(form);
+
+        rptVentasPorCategorias form = new rptVentasPorCategorias();
+
+        deskPricipal.add(form);
 
         try {
             form.setMaximum(false);
@@ -742,13 +750,11 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         form.setVisible(true);
         this.setExtendedState(MAXIMIZED_BOTH);
 
-       
-        
+
     }//GEN-LAST:event_JmIVentasPorCategoriasActionPerformed
 
     private void JmIHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmIHistorialActionPerformed
-       
-        
+
         try {
 
             JasperReport jr = (JasperReport) JRLoader.loadObject(ReportHistorial.class.getResource("/Reportes/RptHistorial.jasper"));
@@ -757,16 +763,13 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
             JasperViewer jv = new JasperViewer(jp, false);
             jv.show();
 
-          //  JasperPrintManager.printReport(jp, true);
-
+            //  JasperPrintManager.printReport(jp, true);
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(rootPane, "error" + e);
         }
 
 
-  
-        
     }//GEN-LAST:event_JmIHistorialActionPerformed
 
     public static void main(String args[]) {
