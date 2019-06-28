@@ -103,7 +103,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     }
     
     public void obtenerAcceso(String s){
-        if (s.equalsIgnoreCase("UsuarioC")){
+        if (!(s.equalsIgnoreCase("Administrador"))){
             txtDescuento.setEnabled(false);
         }
     }
