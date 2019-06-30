@@ -68,7 +68,7 @@
 				<textElement>
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[  $P{fecha_termino}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{fecha_termino}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="69" y="20" width="11" height="15" uuid="c19fe596-b5be-448f-8f55-ab243f145bb8"/>

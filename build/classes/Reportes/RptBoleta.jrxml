@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24a4d5cd-5661-4896-8b53-2dee3e6fbd9c">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
@@ -238,14 +238,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[ Miscelanea ]]></text>
+				<text><![CDATA[Miscelanea "Ejemplo"]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="SubTitle" x="0" y="56" width="160" height="14" uuid="44bd198a-5004-4f6e-a718-f6c0c5ec6a14"/>
 				<textElement textAlignment="Center">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Rut RUT]]></text>
+				<text><![CDATA[Rut  00.000.000-0]]></text>
 			</staticText>
 		</band>
 	</title>
