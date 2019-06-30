@@ -11,18 +11,20 @@ public class Dusuario extends Dpersona {
     private String password;
     private String estado;
     private String acceso;
+    private int desc;
     
     public Dusuario() {
         
     }
 
-    public Dusuario(int cod_usuario, String rut_usuario, String login, String password, String estado,String acceso) {
+    public Dusuario(int cod_usuario, String rut_usuario, String login, String password, String estado,String acceso,int desc) {
         this.cod_usuario = cod_usuario;
         this.rut_usuario = rut_usuario;
         this.login = login;
         this.password = password;
         this.estado = estado;
         this.acceso= acceso;
+        this.desc= desc;
     }
 
     public int getCod_usuario() {
@@ -71,6 +73,14 @@ public class Dusuario extends Dpersona {
 
     public void setAcceso(String acceso) {
         this.acceso = acceso;
+    }
+    
+    public int getDescuento() {
+        return desc;
+    }
+
+    public void setDescuento(int desc) {
+        this.desc = desc;
     }
     
 }

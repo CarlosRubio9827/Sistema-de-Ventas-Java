@@ -14,9 +14,12 @@ import Funciones.Fventa;
 import Funciones.conexion;
 import Reportes.VistaBoleta;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
+
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.text.DecimalFormat;
 
 import java.util.Calendar;
@@ -41,6 +44,8 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     int foco;
     private conexion mysql = new conexion();
     private Connection cn = mysql.conectar();
+    private String[] r = new String[10];
+
     
   
     
@@ -105,7 +110,18 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     public void obtenerAcceso(String s){
         if (!(s.equalsIgnoreCase("Administrador"))){
             txtDescuento.setEnabled(false);
+            jButton3.setEnabled(false);
         }
+    }
+    
+    public void obtenerDescuento(String descuento){
+        txtDescuento.setText(descuento);
+        
+    }
+    
+    public void recibirDatos(String[] d){
+        this.r = d;
+       
     }
 
     public void ocultar_columnas() {
@@ -361,6 +377,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtDescuento = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         btnCalcular = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -615,7 +632,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                         .addComponent(jLabel15)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(txtImporte, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                        .addComponent(txtImporte)
                         .addContainerGap())
                     .addComponent(txtCambio)))
         );
@@ -680,26 +697,38 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         jLabel20.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel20.setText("DESCUENTO");
 
+        jButton3.setText("Establecer descuento");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(104, Short.MAX_VALUE)
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel20)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9))
                     .addComponent(txtTotal_venta)
-                    .addComponent(txtSubTotal, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(txtSubTotal, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel20)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel8)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -712,7 +741,8 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -761,7 +791,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -806,6 +836,9 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             }
         });
         txtCod_producto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCod_productoKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCod_productoKeyTyped(evt);
             }
@@ -900,11 +933,11 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCod_producto, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                        .addComponent(txtCod_producto, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCantidadProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                        .addComponent(txtCantidadProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                         .addGap(3, 3, 3))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel12)
@@ -1029,7 +1062,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                 .addComponent(txtCod_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtCod_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 72, Short.MAX_VALUE))
+                .addGap(19, 127, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
@@ -1612,6 +1645,41 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescuentoActionPerformed
 
+    private void txtCod_productoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCod_productoKeyPressed
+      if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+          System.out.println("hice entrer");
+      }
+    }//GEN-LAST:event_txtCod_productoKeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         String s;
+         int nuevoDescuento = Integer.parseInt(txtDescuento.getText());
+        s = "update usuario set descuento = '" + nuevoDescuento + "' ";
+                
+        try {
+     
+            PreparedStatement pst2 = cn.prepareStatement(s);
+          
+         
+           int N2 = pst2.executeUpdate();
+
+            if ( N2 != 0) {
+                JOptionPane.showMessageDialog(null, "Se establecio un descuento de: " + nuevoDescuento + "'%' en todas las ventas" );
+                System.out.println("bien");
+
+            } else {
+
+               System.out.println("mal");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+   
+        }
+        
+       
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1671,6 +1739,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnbuscarProducto;
     private javax.swing.JComboBox<String> cboComprobante;
     private com.toedter.calendar.JDateChooser dcFecha_venta;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

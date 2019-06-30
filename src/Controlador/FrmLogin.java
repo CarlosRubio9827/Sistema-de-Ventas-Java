@@ -236,9 +236,10 @@ public class FrmLogin extends javax.swing.JFrame {
             modelo = func.login(dts.getLogin(), dts.getPassword());
             
 
-            String tipoAcceso = func.obetnerAcceso(dts.getLogin(), dts.getPassword());
+            String tipoAcceso = func.obtenerAcceso(dts.getLogin(), dts.getPassword());
+            String descuento = func.obtenerDescuento(dts.getLogin(), dts.getPassword());
 
-            System.out.println(func.obetnerAcceso(dts.getLogin(), dts.getPassword()));
+            System.out.println(descuento);
             tablalistado.setModel(modelo);
 
             if (func.totalRegistros > 0) {
@@ -253,6 +254,8 @@ public class FrmLogin extends javax.swing.JFrame {
 
                 FrmVentaDetalle form2 = new FrmVentaDetalle();
                 form2.obtenerAcceso(tipoAcceso);
+                form2.obtenerDescuento(descuento);
+               form2.recibirDatos(func.datosUsuario(dts.getLogin(), dts.getPassword()));
                 
                 FRMPRINCIPAL.deskPricipal.add(form2);
                 try {
