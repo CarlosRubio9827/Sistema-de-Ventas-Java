@@ -3,25 +3,50 @@ package Controlador;
 import static Controlador.FRMPRINCIPAL.MenuProductos;
 import Datos.Dproducto;
 import Funciones.Fproducto;
+import Reportes.ReportTotalRecaudacion;
+import com.itextpdf.text.BaseColor;
 import java.awt.Component;
+import java.awt.Image;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.Barcode128;
+import com.itextpdf.text.pdf.Barcode39;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.awt.HeadlessException;
+
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public final class FrmProducto extends javax.swing.JInternalFrame {
 
@@ -121,7 +146,6 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
 //        lblSalir.setEnabled(true);
         btnNuevo.setEnabled(true);
 
-
         txtCod_producto.setText("");
         txtNombre_producto.setText("");
         txtDescripcion_producto.setText("");
@@ -152,8 +176,6 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
         txtStock.setText("");
         txtBuscar.setText("");
         txtPrecio_compra.setText("");
-
-        
 
     }
 
@@ -243,6 +265,7 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btnBarras = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -517,7 +540,6 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(txtDescripcion_producto))
                         .addGap(54, 54, 54)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -559,6 +581,17 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        btnBarras.setBackground(new java.awt.Color(36, 33, 33));
+        btnBarras.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btnBarras.setForeground(new java.awt.Color(207, 207, 207));
+        btnBarras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesForm/guardar.png"))); // NOI18N
+        btnBarras.setText("Generar Código de Barras");
+        btnBarras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBarrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -571,6 +604,10 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(btnBarras)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -580,7 +617,9 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar)
                     .addComponent(btnEditar))
-                .addGap(20, 20, 20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBarras)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -602,15 +641,16 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
 
@@ -634,7 +674,7 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -671,8 +711,6 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
         String precioCompraProd = txtPrecio_compra.getText();
         String precioCompraProd2 = precioCompraProd.replaceAll("\\.", "");
         datos.setPrecio_compra(Long.valueOf(precioCompraProd2));
-
-  
 
         int categoria = jComboBox1.getSelectedIndex();
         String categoria2 = ((String) jComboBox1.getItemAt(categoria));
@@ -738,7 +776,7 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
             this.dispose();
             return;
         }
-        
+
         Dproducto datos = new Dproducto();
         Fproducto funcion = new Fproducto();
 
@@ -765,8 +803,6 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
         String precioCompraProd = txtPrecio_compra.getText();
         String precioCompraProd2 = precioCompraProd.replaceAll("\\.", "");
         datos.setPrecio_compra(Long.valueOf(precioCompraProd2));
-
-        
 
         int categoria = jComboBox1.getSelectedIndex();
         String categoria2 = ((String) jComboBox1.getItemAt(categoria));
@@ -918,6 +954,63 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
         mostrar(txtBuscar.getText());
     }//GEN-LAST:event_btnExportarActionPerformed
 
+    private void btnBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarrasActionPerformed
+//Generar Código de Barras
+
+        String codigo = txtCod_producto.getText();
+
+        try {
+            if (codigo.equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(null, "Por favor seleccione un producto para generar el codigo de barras");
+            }else{
+             Document doc = new Document();
+            PdfWriter pdf = PdfWriter.getInstance(doc, new FileOutputStream("codigos.pdf"));
+            doc.open();
+
+            doc.add(new Paragraph("Producto: " + txtNombre_producto.getText() + "        "
+                    + "Código: " + txtCod_producto.getText() + "        "
+                    + "Stock: " + txtStock.getText() + "\n"
+                    + "Por favor cerrar este documento despues de imprimir los códigos de barras"
+            ));
+
+            for (int i = 0; i < 12; i++) {
+                Barcode128 code128 = new Barcode128();
+                code128.setCode(codigo);
+                com.itextpdf.text.Image img128 = code128.createImageWithBarcode(pdf.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
+
+                doc.add(img128);
+                doc.add(new Paragraph("  "));
+            }
+
+            doc.close();
+            abrirArchivo("codigos.pdf");   
+            }             
+            
+   
+            
+
+        } catch (DocumentException | FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (HeadlessException ex) {
+            Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnBarrasActionPerformed
+
+    public void abrirArchivo(String archivo) {
+
+        try {
+
+            File objetofile = new File(archivo);
+            Desktop.getDesktop().open(objetofile);
+
+        } catch (IOException ex) {
+
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -954,6 +1047,7 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBarras;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;

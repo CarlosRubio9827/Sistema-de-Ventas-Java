@@ -61,7 +61,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         Calendar c2 = new GregorianCalendar();
         dcFecha_venta.setCalendar(c2);
         txtStockDetalle.setVisible(false);
-        txtCantidadProducto.setEditable(false);
+        txtCantidadProducto.setEditable(true);
 
         txtImporte.setEditable(true);
         txtDescuento.setEditable(true);
@@ -162,6 +162,9 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
             long precio_compra = funcion.selectPrecioCompra();
             txtSubPrecioCompra.setText(String.valueOf(precio_compra));
+            txtCantidadProducto.setText("1");
+            txtCantidadProducto.setEditable(true);
+            txtCantidadProducto.requestFocus();
 
         } else {
             JOptionPane.showMessageDialog(null, "No existe el codigo en el sistema");
@@ -288,7 +291,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtCod_detalle.setVisible(false);
         txtCod_ventaFK.setVisible(false);
         txtNombre_producto.setEditable(false);
-        txtCantidadProducto.setEditable(false);
+        txtCantidadProducto.setEditable(true);
         txtPrecio_producto.setEditable(false);
         txtCod_producto.setEditable(false);
         txtTotal_venta.setEditable(false);
@@ -1106,9 +1109,10 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "No se Ingresaron Datos");
         }
 
+        
         txtCod_producto.setEditable(true);
         txtCod_producto.requestFocus();
-        txtCantidadProducto.setEditable(false);
+        txtCantidadProducto.setEditable(true);
         txtCantidadProducto.setText("1");
         btnCalcular.setEnabled(true);
 
@@ -1129,7 +1133,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         txtCod_producto.setEditable(false);
         txtNombre_producto.setEditable(false);
-        txtCantidadProducto.setEditable(false);
+        txtCantidadProducto.setEditable(true);
         txtPrecio_producto.setEditable(false);
         btnQuitarProducto.setEnabled(true);
         int fila = jTabla.rowAtPoint(evt.getPoint());
@@ -1349,6 +1353,8 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         if (foco == 1) {
             txtCantidadProducto.requestFocus();
+            txtCantidadProducto.setText("1");
+            txtCantidadProducto.setEditable(true);
         } else if (foco == 0) {
             txtCod_producto.requestFocus();
             mostrar(txtCod_ventaFK.getText());
