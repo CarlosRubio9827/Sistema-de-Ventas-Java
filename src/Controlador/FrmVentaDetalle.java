@@ -20,6 +20,8 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 
 import java.util.Calendar;
@@ -53,11 +55,30 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         initComponents();
         //btnGuardar.setMnemonic(KeyEvent.VK_X);
         //obtenerAcceso(s);
+        
+        String de;
+        de = "select descuento from usuario";
+        try {
+             Statement pst2 = cn.createStatement();
+             ResultSet a = pst2.executeQuery(de);
+             while(a.next()){
+                  String rr = a.getString(1);
+             System.out.println(rr);
+             txtDescuento.setText(rr);
+             }
+           
+             
+        } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+       
+        
  
         btnNuevo.setEnabled(false);
         btnCalcular.setEnabled(false);
         
         DetallesFormVenta();
+       
        
         txtDescuento.setFocusAccelerator('u');
         txtImporte.setFocusAccelerator('i');
