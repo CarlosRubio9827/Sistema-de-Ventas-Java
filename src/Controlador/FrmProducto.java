@@ -3,22 +3,20 @@ package Controlador;
 import static Controlador.FRMPRINCIPAL.MenuProductos;
 import Datos.Dproducto;
 import Funciones.Fproducto;
-import Reportes.ReportTotalRecaudacion;
 import com.itextpdf.text.BaseColor;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.Barcode128;
+import com.lowagie.text.pdf.PdfWriter;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Image;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.Barcode128;
-import com.itextpdf.text.pdf.Barcode39;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Desktop;
 import java.awt.HeadlessException;
 
 import java.io.DataOutputStream;
@@ -26,11 +24,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -42,11 +37,6 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 public final class FrmProducto extends javax.swing.JInternalFrame {
 
@@ -962,36 +952,35 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
         try {
             if (codigo.equalsIgnoreCase("")) {
                 JOptionPane.showMessageDialog(null, "Por favor seleccione un producto para generar el codigo de barras");
-            }else{
-             Document doc = new Document();
-            PdfWriter pdf = PdfWriter.getInstance(doc, new FileOutputStream("codigos.pdf"));
-            doc.open();
+            } else {
+                
+                Document doc = new Document() {
+                };
+                PdfWriter pdf = PdfWriter.getInstance(doc, new FileOutputStream("codigos.pdf"));
+                doc.open();
 
-            doc.add(new Paragraph("Producto: " + txtNombre_producto.getText() + "        "
-                    + "Código: " + txtCod_producto.getText() + "        "
-                    + "Stock: " + txtStock.getText() + "\n"
-                    + "Por favor cerrar este documento despues de imprimir los códigos de barras"
-            ));
+                doc.add(new Paragraph("Producto: " + txtNombre_producto.getText() + "        "
+                        + "Código: " + txtCod_producto.getText() + "        "
+                        + "Stock: " + txtStock.getText() + "\n"
+                        + "Por favor cerrar este documento despues de imprimir los códigos de barras"
+                ));
 
-            for (int i = 0; i < 12; i++) {
-                Barcode128 code128 = new Barcode128();
-                code128.setCode(codigo);
-                com.itextpdf.text.Image img128 = code128.createImageWithBarcode(pdf.getDirectContent(), BaseColor.BLACK, BaseColor.BLACK);
+                for (int i = 0; i < 12; i++) {
+                    Barcode128 code128 = new Barcode128();
+                    code128.setCode(codigo);
+                    com.lowagie.text.Image img128 = code128.createImageWithBarcode(pdf.getDirectContent(), Color.BLACK , Color.BLACK);
 
-                doc.add(img128);
-                doc.add(new Paragraph("  "));
+                    doc.add(img128);
+                    doc.add(new Paragraph("  "));
+                }
+
+                doc.close();
+                abrirArchivo("codigos.pdf");
             }
 
-            doc.close();
-            abrirArchivo("codigos.pdf");   
-            }             
-            
-   
-            
-
-        } catch (DocumentException | FileNotFoundException e) {
+        } catch (DocumentException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-        } catch (HeadlessException ex) {
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
 

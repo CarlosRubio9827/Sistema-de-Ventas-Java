@@ -234,12 +234,18 @@ public class FrmLogin extends javax.swing.JFrame {
             dts.setPassword(txtpassword.getText());
 
             modelo = func.login(dts.getLogin(), dts.getPassword());
+            
 
+            String tipoAcceso = func.obtenerAcceso(dts.getLogin(), dts.getPassword());
+            String descuento = func.obtenerDescuento(dts.getLogin(), dts.getPassword());
+
+            System.out.println(descuento);
             tablalistado.setModel(modelo);
 
             if (func.totalRegistros > 0) {
                 this.dispose();
                 FRMPRINCIPAL form = new FRMPRINCIPAL();
+                form.tipoAc(tipoAcceso);
                 form.toFront();
                 form.setVisible(true);
                 FRMPRINCIPAL.lblCod_persona.setText(tablalistado.getValueAt(0, 0).toString());
@@ -247,6 +253,10 @@ public class FrmLogin extends javax.swing.JFrame {
                 FRMPRINCIPAL.lblAcceso.setText(tablalistado.getValueAt(0, 8).toString());
 
                 FrmVentaDetalle form2 = new FrmVentaDetalle();
+                form2.obtenerAcceso(tipoAcceso);
+                form2.obtenerDescuento(descuento);
+               form2.recibirDatos(func.datosUsuario(dts.getLogin(), dts.getPassword()));
+                
                 FRMPRINCIPAL.deskPricipal.add(form2);
                 try {
                     form2.toFront();
@@ -270,6 +280,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     FRMPRINCIPAL.JmIUsuarios.setEnabled(false);
 //                    FRMPRINCIPAL.JmIProveedores.setEnabled(false);
                     FRMPRINCIPAL.JmIClientes.setEnabled(true);
+
                 }
 
             } else {

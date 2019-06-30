@@ -6,7 +6,10 @@ import Datos.Dusuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -119,6 +122,9 @@ public class Fusuario {
     }/*CIERRE FUNCION INSERTAR*/
 
 
+    
+    
+    
     public boolean editar(Dusuario datos) {
 
         sSQL = "update persona set nombre_persona = ? ,direccion = ? ,"
@@ -174,6 +180,7 @@ public class Fusuario {
         }
     }/*CIERRE FUNCION EDITAR*/
 
+ 
 
     public boolean eliminar(Dusuario datos) {
 
@@ -208,6 +215,57 @@ public class Fusuario {
     /**
      * ***************************************************************
      */
+    public String obtenerAcceso(String login, String password){
+        
+        try {
+            sSQL = "select p.cod_persona , p.nombre_persona , p.direccion ,"
+                    + "p.telefono , p.email , u.login , u.password , u.estado ,"
+                    + "u.acceso from persona p inner join usuario "
+                    + " u on p.cod_persona = u.cod_usuario where u.login ='" + login + "' "
+                    + " and u.password ='" + password + "' and estado = 'Activo'";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            String rr = "";
+            while (rs.next()) {
+                rr = rs.getString("acceso");
+         
+                }
+            
+            return rr;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fusuario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
+    public String obtenerDescuento(String login, String password){
+        
+        try {
+            sSQL = "select p.cod_persona , p.nombre_persona , p.direccion ,"
+                    + "p.telefono , p.email , u.login , u.password , u.estado ,"
+                    + "u.acceso , u.descuento from persona p inner join usuario "
+                    + " u on p.cod_persona = u.cod_usuario where u.login ='" + login + "' "
+                    + " and u.password ='" + password + "' and estado = 'Activo'";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            String rr = "";
+            while (rs.next()) {
+                rr = rs.getString("descuento");
+         
+                }
+            
+            return rr;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fusuario.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
+    
     public DefaultTableModel login(String login, String password) {
         DefaultTableModel modelo;
 
@@ -293,4 +351,44 @@ public class Fusuario {
         }
 
     }
+    
+    
+    
+    
+    
+    public String[] datosUsuario(String login, String password) {
+        
+        String[] registro = new String[7];
+ 
+      sSQL = "select p.cod_usuario , p.rut_usuario , p.login ,"
+                + "p.password , p.estado , u.acceso , u.descuento "
+                + " from usuario p inner join usuario "
+                + " u on p.cod_usuario = u.cod_usuario where u.login ='" + login + "' "
+                + " and u.password ='" + password + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+
+            while (rs.next()) {
+                registro[0] = rs.getString("cod_usuario");
+                registro[1] = rs.getString("rut_usuario");
+                registro[2] = rs.getString("login");
+                registro[3] = rs.getString("password");
+                registro[4] = rs.getString("estado");
+                registro[5] = rs.getString("acceso");
+                registro[6] = rs.getString("descuento");
+
+            }
+            return registro;
+
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e);
+            return null;
+        }
+
+    }
+
+    
+    
 }
