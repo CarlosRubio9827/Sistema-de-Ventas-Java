@@ -340,6 +340,11 @@ public final class FrmUsuario extends javax.swing.JInternalFrame {
                 txtRutActionPerformed(evt);
             }
         });
+        txtRut.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRutKeyTyped(evt);
+            }
+        });
 
         txtEmail.setBackground(new java.awt.Color(36, 33, 33));
         txtEmail.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -360,6 +365,11 @@ public final class FrmUsuario extends javax.swing.JInternalFrame {
         txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefonoActionPerformed(evt);
+            }
+        });
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
             }
         });
 
@@ -1025,6 +1035,20 @@ public final class FrmUsuario extends javax.swing.JInternalFrame {
         txtCorreo_contacto.setText(jTabla.getValueAt(fila, 12).toString());
 
     }//GEN-LAST:event_jTablaMouseClicked
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtRutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRutKeyTyped
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtRutKeyTyped
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

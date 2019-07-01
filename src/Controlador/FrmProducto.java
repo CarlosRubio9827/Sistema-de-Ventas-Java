@@ -3,7 +3,7 @@ package Controlador;
 import static Controlador.FRMPRINCIPAL.MenuProductos;
 import Datos.Dproducto;
 import Funciones.Fproducto;
-import com.itextpdf.text.BaseColor;
+//import com.itextpdf.text.BaseColor;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Paragraph;
