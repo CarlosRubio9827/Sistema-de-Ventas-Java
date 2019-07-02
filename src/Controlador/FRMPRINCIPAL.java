@@ -32,6 +32,7 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
 
         initComponents();
 
+        JmIControlVentas.setVisible(false);
         // jmIVenta.setMnemonic(KeyEvent.VK_V);
         this.setLocationRelativeTo(null);
         lblCod_persona.setVisible(false);
@@ -160,7 +161,6 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         jmIVenta.setToolTipText("");
         jmIVenta.setAlignmentX(0.0F);
         jmIVenta.setAlignmentY(0.0F);
-        jmIVenta.setBorderPainted(true);
         jmIVenta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jmIVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jmIVenta.setOpaque(true
@@ -316,7 +316,7 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         JmIVentasPorFecha.setBackground(new java.awt.Color(36, 33, 33));
         JmIVentasPorFecha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         JmIVentasPorFecha.setForeground(new java.awt.Color(255, 255, 255));
-        JmIVentasPorFecha.setText("Ventas por Fecha");
+        JmIVentasPorFecha.setText("Ventas por Fecha (Detallado)");
         JmIVentasPorFecha.setOpaque(true);
         JmIVentasPorFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -661,8 +661,8 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
             form.setMaximum(false);
             form.setClosable(true);
             form.setIconifiable(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR ");
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         this.setLocationRelativeTo(null);
         form.toFront();
@@ -749,8 +749,8 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
             form.setMaximum(false);
             form.setClosable(true);
             form.setIconifiable(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR ");
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage() );
         }
         this.setLocationRelativeTo(null);
         form.toFront();

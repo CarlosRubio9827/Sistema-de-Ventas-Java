@@ -3,6 +3,7 @@ import Datos.Dhistorial;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +15,7 @@ public class Fhistorial {
 
     private String sSQL = "";
 
-    public DefaultTableModel Mostrar(int id) {
+    public DefaultTableModel Mostrar(long id) {
 
         DefaultTableModel modelo;
         String[] titulos = {"FECHA", "NOMBRE", "DESCRIPCION", "CANTIDAD","REFERENCIA"};
@@ -37,7 +38,7 @@ public class Fhistorial {
                 modelo.addRow(registros);
             }
             return modelo;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return null;
         }
@@ -49,8 +50,8 @@ public class Fhistorial {
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
-
-            pst.setInt(1, datos.getCod_productoFK1());
+            
+            pst.setLong(1,  datos.getCod_productoFK1());
             pst.setInt(2, datos.getCod_usuarioFK1());
             pst.setString(3, datos.getDescripcion());
             pst.setString(4, datos.getReferencia());
@@ -58,13 +59,9 @@ public class Fhistorial {
             pst.setDate(6, datos.getFecha());
             int N = pst.executeUpdate();
 
-            if (N != 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return N != 0;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
         }

@@ -10,7 +10,7 @@ import java.sql.Date;
 public class Dhistorial {
     
     private int cod_historial;
-    private int cod_productoFK1;
+    private long cod_productoFK1;
     private int cod_usuarioFK1;
     private String descripcion;
     private String referencia;
@@ -20,7 +20,7 @@ public class Dhistorial {
     public Dhistorial() {
     }
 
-    public Dhistorial(int cod_historial, int cod_productoFK1, int cod_usuarioFK1, String descripcion, String referencia, int cantidad, Date fecha) {
+    public Dhistorial(int cod_historial, long cod_productoFK1, int cod_usuarioFK1, String descripcion, String referencia, int cantidad, Date fecha) {
         this.cod_historial = cod_historial;
         this.cod_productoFK1 = cod_productoFK1;
         this.cod_usuarioFK1 = cod_usuarioFK1;
@@ -40,11 +40,11 @@ public class Dhistorial {
         this.cod_historial = cod_historial;
     }
 
-    public int getCod_productoFK1() {
+    public long getCod_productoFK1() {
         return cod_productoFK1;
     }
 
-    public void setCod_productoFK1(int cod_productoFK1) {
+    public void setCod_productoFK1(long cod_productoFK1) {
         this.cod_productoFK1 = cod_productoFK1;
     }
 

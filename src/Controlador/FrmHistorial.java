@@ -53,7 +53,7 @@ public class FrmHistorial extends javax.swing.JInternalFrame {
         });
     }
 
-    public void mostrar(int id) {
+    public void mostrar(long id) {
         try {
             DefaultTableModel modelo;
             Fhistorial funcion = new Fhistorial();
@@ -383,7 +383,9 @@ public class FrmHistorial extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTablaMouseClicked
 
     private void btnAceptarValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarValoresActionPerformed
-        if (txtValor.getText().length() == 0) {
+       
+        try {
+         if (txtValor.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un valor.");
             txtValor.requestFocus();
             return;
@@ -397,7 +399,7 @@ public class FrmHistorial extends javax.swing.JInternalFrame {
         valor = Integer.parseInt(txtValor.getText());
         Dhistorial datos2 = new Dhistorial();
         Fhistorial funcion2 = new Fhistorial();
-        datos2.setCod_productoFK1(Integer.parseInt(txtCod_producto.getText()));
+        datos2.setCod_productoFK1(Long.parseLong(txtCod_producto.getText()));
         datos2.setCod_usuarioFK1(Integer.parseInt(txtUsu.getText()));
         Calendar cal;
         int d, m, a;
@@ -453,8 +455,12 @@ public class FrmHistorial extends javax.swing.JInternalFrame {
 
         }
 
-        mostrar(Integer.parseInt(txtCod_producto.getText()));
-        //jrbAumentar.setSelected(true);
+        mostrar(Long.parseLong(txtCod_producto.getText()));
+        //jrbAumentar.setSelected(true);   
+        } catch (Exception  e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
     }//GEN-LAST:event_btnAceptarValoresActionPerformed
 
     private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped

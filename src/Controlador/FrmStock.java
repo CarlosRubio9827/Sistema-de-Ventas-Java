@@ -260,14 +260,17 @@ public class FrmStock extends javax.swing.JInternalFrame {
                 frm.txtUsu.setText(lblCod_persona.getText());
 
                 int fila = jTabla.rowAtPoint(evt.getPoint());
-                int id = Integer.parseInt(jTabla.getValueAt(fila, 0).toString());
+                long z = Long.parseLong(jTabla.getValueAt(fila, 0).toString());
+                System.out.println(z);
+                long id = Long.parseLong(jTabla.getValueAt(fila, 0).toString());
+                System.out.println(id);
                 frm.mostrar(id);
 
                 frm.txtCod_producto.setText(jTabla.getValueAt(fila, 0).toString());
                 frm.txtNombre_producto.setText(jTabla.getValueAt(fila, 1).toString());
 
-                frm.txtPrecio.setText(jTabla.getValueAt(fila, 4).toString());
-                frm.txtStock.setText(jTabla.getValueAt(fila, 5).toString());
+                frm.txtStock.setText(jTabla.getValueAt(fila, 4).toString());
+                frm.txtPrecio.setText(jTabla.getValueAt(fila, 5).toString());
 
                 frm.setClosable(true);
                 frm.setIconifiable(true);
@@ -275,7 +278,7 @@ public class FrmStock extends javax.swing.JInternalFrame {
                 frm.toFront();
                 frm.setVisible(true);
 
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, e);
             }
 

@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
@@ -182,7 +183,7 @@ public class rptTotalRecaudacion extends javax.swing.JInternalFrame {
 
           //  JasperPrintManager.printReport(jp, true);
 
-        } catch (Exception e) {
+        } catch (JRException e) {
 
             JOptionPane.showMessageDialog(rootPane, "error" + e);
         }
