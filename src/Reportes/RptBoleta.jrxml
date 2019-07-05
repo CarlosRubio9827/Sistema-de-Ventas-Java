@@ -234,18 +234,32 @@
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="0" y="40" width="160" height="16" uuid="d4eb6a0d-d08b-4fd8-9ce8-5e35b403f598"/>
+				<reportElement style="Title" x="0" y="11" width="160" height="16" uuid="d4eb6a0d-d08b-4fd8-9ce8-5e35b403f598"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="6"/>
 				</textElement>
-				<text><![CDATA[Miscelanea "Ejemplo"]]></text>
+				<text><![CDATA[Papeleria y Variedades: "El mundo Escolar"]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="0" y="56" width="160" height="14" uuid="44bd198a-5004-4f6e-a718-f6c0c5ec6a14"/>
+				<reportElement style="SubTitle" x="0" y="27" width="160" height="14" uuid="44bd198a-5004-4f6e-a718-f6c0c5ec6a14"/>
 				<textElement textAlignment="Center">
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[Rut  00.000.000-0]]></text>
+				<text><![CDATA[Nit: 60.405.924-8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="41" width="160" height="14" uuid="006eedc3-fec6-4bf5-8b2e-7afb8d62bebd"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Dirección: Av 9 #14-05]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="55" width="160" height="14" uuid="34681013-b633-4e3f-81f9-3b26957ebe41"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Rozo - Valle del Cauca]]></text>
 			</staticText>
 		</band>
 	</title>

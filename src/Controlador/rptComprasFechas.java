@@ -3,17 +3,16 @@ package Controlador;
 import Funciones.conexion;
 import Reportes.ReportHistorial;
 
-import Reportes.ReportVentasPorFecha;
-import java.sql.Connection;
+ import java.sql.Connection;
 import java.sql.Date;
-
+ 
 import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JOptionPane;
+ import java.util.Map;
+ import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.engine.JasperReport;
+ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -172,7 +171,9 @@ public class rptComprasFechas extends javax.swing.JInternalFrame {
         if (comprobarCompras == 1) {
 
             try {
-/**************/
+                /**
+                 * ***********
+                 */
                 JasperReport jr = (JasperReport) JRLoader.loadObject(ReportHistorial.class.getResource("/Reportes/RptProductosComprados.jasper"));
                 Map parametro = new HashMap<String, Date>();
 
@@ -184,9 +185,9 @@ public class rptComprasFechas extends javax.swing.JInternalFrame {
                 jv.show();
 
                 //  JasperPrintManager.printReport(jp, true);
-            } catch (Exception e) {
+            } catch (JRException e) {
 
-                JOptionPane.showMessageDialog(rootPane, "error" + e);
+                JOptionPane.showMessageDialog(rootPane, "error" + e.getMessage());
             }
 
         }
@@ -239,5 +240,4 @@ public class rptComprasFechas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 
-   
 }

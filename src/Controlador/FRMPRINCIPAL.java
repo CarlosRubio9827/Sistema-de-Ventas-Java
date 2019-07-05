@@ -1,6 +1,6 @@
 package Controlador;
 
-import static Controlador.rptVentasFechas.comprobar;
+import Controlador.rptVentasFechas.comprobar;
 import ControladorMINI.FrmPrincipalMINI;
 import Funciones.conexion;
 import Reportes.ReportHistorial;
@@ -24,6 +24,11 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class FRMPRINCIPAL extends javax.swing.JFrame {
 
+    //Nombre: Papeleria y Variedades: El mundo Escolar
+    //Nit: 60.405.924-8
+    //Dirección: Av 9 #14-05
+    
+    
     private conexion mysql = new conexion();
     private Connection cn = mysql.conectar();
     private String tipoAc = "";
@@ -585,12 +590,14 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
     }//GEN-LAST:event_JmIControlVentasActionPerformed
 
     private void JmIStockCriticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmIStockCriticoActionPerformed
+        
         int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Stock minimo de los productos"));
         if (cantidad < 0) {
 
             JOptionPane.showMessageDialog(null, "Debe ingresar un valor mayor");
             return;
         }
+        
         try {
 
             JasperReport jr = (JasperReport) JRLoader.loadObject(frmStockCritico.class.getResource("/Reportes/StockCritico.jasper"));

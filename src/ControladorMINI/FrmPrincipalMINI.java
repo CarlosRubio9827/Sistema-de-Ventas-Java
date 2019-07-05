@@ -2,12 +2,14 @@ package ControladorMINI;
 
 import FuncionesMINI.conexion;
 import java.awt.Graphics;
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicDesktopPaneUI;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -198,8 +200,8 @@ public class FrmPrincipalMINI extends javax.swing.JFrame {
             JasperViewer jv = new JasperViewer(jp, false);
             jv.show();
             // JasperPrintManager.printReport( jp, true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "error" + e);
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "error" + e.getMessage());
         }
     }//GEN-LAST:event_btnCalculoActionPerformed
 
@@ -209,7 +211,8 @@ public class FrmPrincipalMINI extends javax.swing.JFrame {
         try {
             form.setMaximum(true);
             this.setLocationRelativeTo(null);
-        } catch (Exception e) {
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
         form.toFront();
@@ -228,8 +231,8 @@ public class FrmPrincipalMINI extends javax.swing.JFrame {
             JasperViewer jv = new JasperViewer(jp, false);
             jv.show();
             // JasperPrintManager.printReport( jp, true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "error" + e);
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "error" + e.getMessage());
         }
     }//GEN-LAST:event_btnProdNoinvActionPerformed
 
@@ -243,8 +246,8 @@ public class FrmPrincipalMINI extends javax.swing.JFrame {
             JasperViewer jv = new JasperViewer(jp, false);
             jv.show();
             // JasperPrintManager.printReport( jp, true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "error" + e);
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "error" + e.getMessage());
         }
     }//GEN-LAST:event_btnProdNoRegistradosActionPerformed
 

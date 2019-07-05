@@ -3,12 +3,14 @@ package Controlador;
 import static Controlador.FRMPRINCIPAL.MenuProductos;
 import Datos.Dproducto;
 import Funciones.Fproducto;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.Barcode128;
+import com.itextpdf.text.pdf.PdfWriter;
 //import com.itextpdf.text.BaseColor;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.Barcode128;
-import com.lowagie.text.pdf.PdfWriter;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -190,7 +192,7 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
 
         Fproducto funcion = new Fproducto();
         jComboBox1.removeAllItems();
-        ArrayList<String> lista = new ArrayList<String>();
+        ArrayList<String> lista ;
         lista = funcion.llenar_combo();
         for (int i = 0; i < lista.size(); i++) {
             jComboBox1.addItem(lista.get(i));
@@ -968,7 +970,7 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                 for (int i = 0; i < 12; i++) {
                     Barcode128 code128 = new Barcode128();
                     code128.setCode(codigo);
-                    com.lowagie.text.Image img128 = code128.createImageWithBarcode(pdf.getDirectContent(), Color.BLACK , Color.BLACK);
+                    com.itextpdf.text.Image img128 = code128.createImageWithBarcode(pdf.getDirectContent(), BaseColor.BLACK , BaseColor.BLACK);
 
                     doc.add(img128);
                     doc.add(new Paragraph("  "));

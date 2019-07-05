@@ -16,7 +16,6 @@ import Reportes.VistaBoleta;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -51,38 +50,31 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     private Connection cn = mysql.conectar();
     private String[] r = new String[10];
 
-    
-  
-    
     public FrmVentaDetalle() {
         initComponents();
         //btnGuardar.setMnemonic(KeyEvent.VK_X);
         //obtenerAcceso(s);
-        
+
         String de;
         de = "select descuento from usuario";
         try {
-             Statement pst2 = cn.createStatement();
-             ResultSet a = pst2.executeQuery(de);
-             while(a.next()){
-                  String rr = a.getString(1);
-             System.out.println(rr);
-             txtDescuento.setText(rr);
-             }
-           
-             
+            Statement pst2 = cn.createStatement();
+            ResultSet a = pst2.executeQuery(de);
+            while (a.next()) {
+                String rr = a.getString(1);
+                System.out.println(rr);
+                txtDescuento.setText(rr);
+            }
+
         } catch (Exception e) {
-               JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-       
-        
- 
+
         btnNuevo.setEnabled(false);
         btnCalcular.setEnabled(false);
-        
+
         DetallesFormVenta();
-       
-       
+
         txtDescuento.setFocusAccelerator('u');
         txtImporte.setFocusAccelerator('i');
 
@@ -90,7 +82,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtCod_producto.setFocusAccelerator('p');
 
         OcultaBotones();
-        
+
         Calendar c2 = new GregorianCalendar();
         dcFecha_venta.setCalendar(c2);
         txtStockDetalle.setVisible(false);
@@ -130,22 +122,22 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             }
         });
     }
-    
-    public void obtenerAcceso(String s){
-        if (!(s.equalsIgnoreCase("Administrador"))){
+
+    public void obtenerAcceso(String s) {
+        if (!(s.equalsIgnoreCase("Administrador"))) {
             txtDescuento.setEnabled(false);
             jButton3.setEnabled(false);
         }
     }
-    
-    public void obtenerDescuento(String descuento){
+
+    public void obtenerDescuento(String descuento) {
         txtDescuento.setText(descuento);
-        
+
     }
-    
-    public void recibirDatos(String[] d){
+
+    public void recibirDatos(String[] d) {
         this.r = d;
-       
+
     }
 
     public void ocultar_columnas() {
@@ -215,11 +207,10 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             txtCantidadProducto.requestFocus();
             txtCantidadProducto.setText("1");
             txtCantidadProducto.setEditable(true);
-            
 
         } else {
             JOptionPane.showMessageDialog(null, "No existe el codigo en el sistema");
-           txtCod_producto.requestFocus();
+            txtCod_producto.requestFocus();
             txtCod_producto.setText("");
         }
 
@@ -1186,9 +1177,8 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "No se Ingresaron Datos");
         }
 
-        
         txtCod_producto.setEditable(true);
-       txtCod_producto.requestFocus();
+        txtCod_producto.requestFocus();
         txtCantidadProducto.setEditable(true);
         txtCantidadProducto.setText("1");
         btnCalcular.setEnabled(true);
@@ -1343,7 +1333,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             txtPrecio_producto.setEditable(false);
             txtCantidadProducto.setText("1");
             txtCod_producto.setEditable(true);
-           txtCod_producto.requestFocus();
+            txtCod_producto.requestFocus();
             txtCantidadProducto.setEditable(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -1429,7 +1419,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         seleccionProd();
 
         if (foco == 1) {
-         
+
             txtCantidadProducto.setText("1");
             txtCantidadProducto.setEditable(true);
         } else if (foco == 0) {
@@ -1529,26 +1519,27 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                     // JasperPrintManager.printReport( jp, true);
                 } catch (Exception e) {
 
-                    JOptionPane.showMessageDialog(rootPane, "error" + e);
+                    JOptionPane.showMessageDialog(rootPane, "error" + e.getMessage());
                 }
             } else if (cboComprobante.getSelectedItem().equals("Boleta")) {
                 try {
-                    
+
                     int codigo = Integer.parseInt(txtCod_venta.getText());
-
+                    System.out.println("Aqui quedo 1");
                     JasperReport jr = (JasperReport) JRLoader.loadObject(VistaBoleta.class.getResource("/Reportes/RptBoleta.jasper"));
-
+                    System.out.println("Aqui quedo 2");
                     Map parametro = new HashMap<String, Integer>();
                     parametro.put("cod_venta", codigo);
-
+                    System.out.println("Aqui quedo 3");
                     JasperPrint jp = JasperFillManager.fillReport(jr, parametro, cn);
+                    System.out.println("Aqui quedo 4");
                     JasperViewer jv = new JasperViewer(jp, false);
                     jv.show();
 
                     // JasperPrintManager.printReport( jp, true);
                     btnNuevo.setEnabled(true);
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "error" + e);
+                    JOptionPane.showMessageDialog(rootPane, "error" + e.getMessage());
                 }
 
             }
@@ -1679,173 +1670,172 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDescuentoActionPerformed
 
     private void txtCod_productoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCod_productoKeyPressed
-      if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-          txtCantidadProducto.requestFocus();
-      }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtCantidadProducto.requestFocus();
+        }
     }//GEN-LAST:event_txtCod_productoKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         String s;
-         int nuevoDescuento = Integer.parseInt(txtDescuento.getText());
+        String s;
+        int nuevoDescuento = Integer.parseInt(txtDescuento.getText());
         s = "update usuario set descuento = '" + nuevoDescuento + "' ";
-                
+
         try {
-            if(nuevoDescuento >= 99){
+            if (nuevoDescuento >= 99) {
                 JOptionPane.showMessageDialog(null, "El descuento no puede ser mayor a 99");
-            }else{
-                
-            PreparedStatement pst2 = cn.prepareStatement(s);
-          
-         
-           int N2 = pst2.executeUpdate();
-
-            if ( N2 != 0) {
-                JOptionPane.showMessageDialog(null, "Se establecio un descuento de: " + nuevoDescuento + "'%' en todas las ventas" );
-                System.out.println("bien");
-
             } else {
 
-               System.out.println("mal");
-            }
+                PreparedStatement pst2 = cn.prepareStatement(s);
+
+                int N2 = pst2.executeUpdate();
+
+                if (N2 != 0) {
+                    JOptionPane.showMessageDialog(null, "Se establecio un descuento de: " + nuevoDescuento + "'%' en todas las ventas");
+                    System.out.println("bien");
+
+                } else {
+
+                    System.out.println("mal");
+                }
 
             }
-     
+
         } catch (ExceptionInInitializerError e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-   
+
         } catch (SQLException ex) {
             Logger.getLogger(FrmVentaDetalle.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       
+
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtCantidadProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProductoKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-            DecimalFormat formatea = new DecimalFormat("###,###.##");
-            if (txtCod_producto.getText().length() == 0 || txtNombre_producto.getText().length() == 0) {
-                JOptionPane.showMessageDialog(null, "Seleccione un Producto.");
-                btnbuscarProducto.requestFocus();
-                return;
+                DecimalFormat formatea = new DecimalFormat("###,###.##");
+                if (txtCod_producto.getText().length() == 0 || txtNombre_producto.getText().length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Seleccione un Producto.");
+                    btnbuscarProducto.requestFocus();
+                    return;
+                }
+                if (txtCantidadProducto.getText().length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Ingrese una Cantidad.");
+                    txtCantidadProducto.requestFocus();
+                    return;
+                }
+                if (txtPrecio_producto.getText().length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Ingrese un precio.");
+                    txtPrecio_producto.requestFocus();
+                    return;
+                }
+                int Cantidad = Integer.parseInt(txtCantidadProducto.getText());
+                long Stock = Long.valueOf(txtStockDetalle.getText());
+                if (Cantidad > Stock) {
+                    JOptionPane.showMessageDialog(null, "La cantidad a vender supera el Stock del producto.");
+                    txtCantidadProducto.setText("");
+                    txtCantidadProducto.requestFocus();
+                    return;
+                }
+
+                String prec = txtPrecio_producto.getText();
+                String prec2 = prec.replaceAll("\\.", "");
+
+                String SubPrec = txtSubPrecioCompra.getText();
+                String SubPrec2 = SubPrec.replaceAll("\\.", "");
+
+                long var1 = Long.parseLong(prec2);
+                long var2 = Long.parseLong(txtCantidadProducto.getText());
+                long var3 = Long.parseLong(SubPrec2);
+
+                // long var1 = Long.parseLong(txtPrecio_producto.getText());
+                // long var2 = Long.parseLong(txtCantidadProducto.getText());
+                //  long var3 =Long.parseLong(txtSubPrecioCompra.getText());
+                long resultadoDetalle = var1 * var2;
+                long resultadoDetalle2 = var2 * var3;
+
+                Ddetalle_venta datos = new Ddetalle_venta();
+                Fdetalle_venta funcion = new Fdetalle_venta();
+
+                datos.setCantidad_detalle(Integer.parseInt(txtCantidadProducto.getText()));
+                datos.setCod_productoFK(Long.valueOf(txtCod_producto.getText()));
+                datos.setCod_ventaFK(Integer.parseInt(txtCod_ventaFK.getText()));
+                String precioProducto = txtPrecio_producto.getText();
+                String precioProducto2 = precioProducto.replaceAll("\\.", "");
+                datos.setPrecio_producto(Long.valueOf(precioProducto2));
+
+                String subTotal = String.valueOf(resultadoDetalle);
+                String subTotal2 = subTotal.replaceAll("\\.", "");
+                datos.setSubtotal(Long.valueOf(subTotal2));
+
+                String subPrecCompra = String.valueOf(resultadoDetalle2);
+                String subPrecCompra2 = subPrecCompra.replaceAll("\\.", "");
+                datos.setSubPrecioCompra(Long.valueOf(subPrecCompra2));
+
+                if (funcion.insertar(datos)) {
+
+                    // long valorProd = Long.parseLong(txtPrecio_producto.getText());
+                    //long valor2 = Long.parseLong(txtSubTotal.getText());
+                    long valorProd = Long.parseLong(precioProducto2);
+
+                    String subTotal3 = txtSubTotal.getText();
+                    String subTotal4 = subTotal3.replaceAll("\\.", "");
+
+                    //long valor2 = Long.parseLong(txtSubTotal.getText());
+                    long valor2 = Long.parseLong(subTotal4);
+
+                    int descuento = Integer.parseInt(txtDescuento.getText());
+
+                    long total = valorProd * Cantidad;
+                    long resultado = total + valor2;
+
+                    double descuento2 = resultado * (descuento * 0.01);
+
+                    long resultadoDescuento = Math.round(resultado - descuento2);
+
+                    String mostrar0 = formatea.format(resultado);
+                    txtSubTotal.setText(String.valueOf(mostrar0));
+
+                    String mostrar3 = formatea.format(resultadoDescuento);//resultado
+                    txtTotal_venta.setText(String.valueOf(mostrar3));
+
+                    Dventa datos1 = new Dventa();
+                    Fventa funcion1 = new Fventa();
+                    datos1.setCod_venta(Integer.parseInt(txtCod_ventaFK.getText()));
+
+                    //  datos1.setTotal_venta(Long.valueOf(txtTotal_venta.getText()));
+                    String totalVenta1 = txtTotal_venta.getText();
+                    String totalVenta2 = totalVenta1.replaceAll("\\.", "");
+                    datos1.setTotal_venta(Long.valueOf(totalVenta2));
+
+                    funcion1.Total(datos1);
+                    /**
+                     * ****Quitar Stock*+++++++++
+                     */
+                    Dproducto datos2 = new Dproducto();
+                    Fproducto funcion2 = new Fproducto();
+                    int stock = 0;
+                    int cantidad = 0;
+                    datos2.setCod_producto(Long.valueOf(txtCod_producto.getText()));
+                    stock = Integer.parseInt(txtStockDetalle.getText());
+                    cantidad = Integer.parseInt(txtCantidadProducto.getText());
+                    stock = stock - cantidad;
+                    datos2.setStock_producto(stock);
+                    funcion2.ModificarStockProductos(datos2);
+                    txtCod_producto.requestFocus();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error Ingreso");
+                }
+                mostrar(txtCod_ventaFK.getText());
+                limpiarProductosDetalle();
+                txtPrecio_producto.setEditable(false);
+                txtCantidadProducto.setText("1");
+                txtCod_producto.setEditable(true);
+                //  txtCod_producto.requestFocus();
+                txtCantidadProducto.setEditable(false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
-            if (txtCantidadProducto.getText().length() == 0) {
-                JOptionPane.showMessageDialog(null, "Ingrese una Cantidad.");
-                txtCantidadProducto.requestFocus();
-                return;
-            }
-            if (txtPrecio_producto.getText().length() == 0) {
-                JOptionPane.showMessageDialog(null, "Ingrese un precio.");
-                txtPrecio_producto.requestFocus();
-                return;
-            }
-            int Cantidad = Integer.parseInt(txtCantidadProducto.getText());
-            long Stock = Long.valueOf(txtStockDetalle.getText());
-            if (Cantidad > Stock) {
-                JOptionPane.showMessageDialog(null, "La cantidad a vender supera el Stock del producto.");
-                txtCantidadProducto.setText("");
-                txtCantidadProducto.requestFocus();
-                return;
-            }
-
-            String prec = txtPrecio_producto.getText();
-            String prec2 = prec.replaceAll("\\.", "");
-
-            String SubPrec = txtSubPrecioCompra.getText();
-            String SubPrec2 = SubPrec.replaceAll("\\.", "");
-
-            long var1 = Long.parseLong(prec2);
-            long var2 = Long.parseLong(txtCantidadProducto.getText());
-            long var3 = Long.parseLong(SubPrec2);
-
-            // long var1 = Long.parseLong(txtPrecio_producto.getText());
-            // long var2 = Long.parseLong(txtCantidadProducto.getText());
-            //  long var3 =Long.parseLong(txtSubPrecioCompra.getText());
-            long resultadoDetalle = var1 * var2;
-            long resultadoDetalle2 = var2 * var3;
-
-            Ddetalle_venta datos = new Ddetalle_venta();
-            Fdetalle_venta funcion = new Fdetalle_venta();
-
-            datos.setCantidad_detalle(Integer.parseInt(txtCantidadProducto.getText()));
-            datos.setCod_productoFK(Long.valueOf(txtCod_producto.getText()));
-            datos.setCod_ventaFK(Integer.parseInt(txtCod_ventaFK.getText()));
-            String precioProducto = txtPrecio_producto.getText();
-            String precioProducto2 = precioProducto.replaceAll("\\.", "");
-            datos.setPrecio_producto(Long.valueOf(precioProducto2));
-
-            String subTotal = String.valueOf(resultadoDetalle);
-            String subTotal2 = subTotal.replaceAll("\\.", "");
-            datos.setSubtotal(Long.valueOf(subTotal2));
-
-            String subPrecCompra = String.valueOf(resultadoDetalle2);
-            String subPrecCompra2 = subPrecCompra.replaceAll("\\.", "");
-            datos.setSubPrecioCompra(Long.valueOf(subPrecCompra2));
-
-            if (funcion.insertar(datos)) {
-
-                // long valorProd = Long.parseLong(txtPrecio_producto.getText());
-                //long valor2 = Long.parseLong(txtSubTotal.getText());
-                long valorProd = Long.parseLong(precioProducto2);
-
-                String subTotal3 = txtSubTotal.getText();
-                String subTotal4 = subTotal3.replaceAll("\\.", "");
-
-                //long valor2 = Long.parseLong(txtSubTotal.getText());
-                long valor2 = Long.parseLong(subTotal4);
-
-                int descuento = Integer.parseInt(txtDescuento.getText());
-
-                long total = valorProd * Cantidad;
-                long resultado = total + valor2;
-
-                double descuento2 = resultado * (descuento * 0.01);
-
-                long resultadoDescuento = Math.round(resultado - descuento2);
-
-                String mostrar0 = formatea.format(resultado);
-                txtSubTotal.setText(String.valueOf(mostrar0));
-
-                String mostrar3 = formatea.format(resultadoDescuento);//resultado
-                txtTotal_venta.setText(String.valueOf(mostrar3));
-
-                Dventa datos1 = new Dventa();
-                Fventa funcion1 = new Fventa();
-                datos1.setCod_venta(Integer.parseInt(txtCod_ventaFK.getText()));
-
-                //  datos1.setTotal_venta(Long.valueOf(txtTotal_venta.getText()));
-                String totalVenta1 = txtTotal_venta.getText();
-                String totalVenta2 = totalVenta1.replaceAll("\\.", "");
-                datos1.setTotal_venta(Long.valueOf(totalVenta2));
-
-                funcion1.Total(datos1);
-                /**
-                 * ****Quitar Stock*+++++++++
-                 */
-                Dproducto datos2 = new Dproducto();
-                Fproducto funcion2 = new Fproducto();
-                int stock = 0;
-                int cantidad = 0;
-                datos2.setCod_producto(Long.valueOf(txtCod_producto.getText()));
-                stock = Integer.parseInt(txtStockDetalle.getText());
-                cantidad = Integer.parseInt(txtCantidadProducto.getText());
-                stock = stock - cantidad;
-                datos2.setStock_producto(stock);
-                funcion2.ModificarStockProductos(datos2);
-                txtCod_producto.requestFocus();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error Ingreso");
-            }
-            mostrar(txtCod_ventaFK.getText());
-            limpiarProductosDetalle();
-            txtPrecio_producto.setEditable(false);
-            txtCantidadProducto.setText("1");
-            txtCod_producto.setEditable(true);
-          //  txtCod_producto.requestFocus();
-            txtCantidadProducto.setEditable(false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
 
         }
     }//GEN-LAST:event_txtCantidadProductoKeyPressed
@@ -1888,7 +1878,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
- 
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
