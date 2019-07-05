@@ -2,13 +2,15 @@ package Controlador;
 
 import Datos.Dusuario;
 import Funciones.Fusuario;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import javax.swing.ImageIcon;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class FrmLogin extends javax.swing.JFrame {
-
+ 
     public FrmLogin() {
         initComponents();
 
@@ -341,7 +343,33 @@ public class FrmLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmLogin().setVisible(true);
+
+                try {
+                    InetAddress ip;
+                    String a = "";
+                    ip = InetAddress.getLocalHost();
+                    NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+
+                    byte[] mac = network.getHardwareAddress();
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < mac.length; i++) {
+                        sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+                    }
+                    a = sb.toString();
+                    System.out.println(a);
+                    if (a.equalsIgnoreCase("00-E0-4C-CC") || a.equalsIgnoreCase("pana ejecuta el programa, y en la consola va a aparecer tu mac, solo copiala y pegala en todo este texto")) {
+                        new FrmLogin().setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No esta autorizado para usar este programa");
+                        System.exit(0);
+                    }
+
+                } catch (Exception e) {
+
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+
+                }
+
             }
         });
     }
