@@ -2,8 +2,11 @@ package Controlador;
 
 import Datos.Dusuario;
 import Funciones.Fusuario;
+import java.awt.HeadlessException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import javax.swing.ImageIcon;
 
 import javax.swing.JOptionPane;
@@ -289,7 +292,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Datos incorrectos", "Acceso al Sistema", JOptionPane.ERROR_MESSAGE);
             }
 
-        } catch (Exception e) {
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "ERROR " + e);
         }
 
@@ -357,14 +360,14 @@ public class FrmLogin extends javax.swing.JFrame {
                     }
                     a = sb.toString();
                     System.out.println(a);
-                    if (a.equalsIgnoreCase("00-E0-4C-CC") || a.equalsIgnoreCase("pana ejecuta el programa, y en la consola va a aparecer tu mac, solo copiala y pegala en todo este texto")) {
+                    if (a.equalsIgnoreCase("20-16-D8-EE-7C-43") || a.equalsIgnoreCase("20-89-84-39-11-FB")) {
                         new FrmLogin().setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "No esta autorizado para usar este programa");
                         System.exit(0);
                     }
 
-                } catch (Exception e) {
+                } catch (HeadlessException | SocketException | UnknownHostException e) {
 
                     JOptionPane.showMessageDialog(null, e.getMessage());
 

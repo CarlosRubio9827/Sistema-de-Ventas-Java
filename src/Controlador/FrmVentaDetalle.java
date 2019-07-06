@@ -477,7 +477,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         btnGuardar.setBackground(new java.awt.Color(36, 33, 33));
         btnGuardar.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(207, 207, 207));
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesForm/guardar.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesForm/iniciarCompra.png"))); // NOI18N
         btnGuardar.setMnemonic('x');
         btnGuardar.setText("Iniciar ");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -621,6 +621,11 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtImporte.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtImporte.setText("0");
         txtImporte.setSelectionColor(new java.awt.Color(0, 0, 0));
+        txtImporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtImporteActionPerformed(evt);
+            }
+        });
         txtImporte.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtImporteKeyTyped(evt);
@@ -747,7 +752,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel9)
                                 .addComponent(jLabel8))
                             .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1472,6 +1477,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboComprobanteActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        
         DecimalFormat formatea = new DecimalFormat("###,###.##");
 
         if (txtImporte.getText().length() == 0) {
@@ -1552,6 +1558,71 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         }
         this.setClosable(true);
+        
+        try {
+              Dventa datos = new Dventa();
+        Fventa funcion = new Fventa();
+        Fdetalle_venta funcion2 = new Fdetalle_venta();
+
+        datos.setCod_venta(Integer.parseInt(txtCod_venta.getText()));
+        String importe0 = txtImporte.getText();
+
+        if ("".equals(importe0)) {
+            JOptionPane.showMessageDialog(null, "Ingrese un valor en el IMPORTE");
+            txtImporte.requestFocus();
+            return;
+        }
+
+         importe = Integer.parseInt(txtImporte.getText());
+
+        funcion2.mostrar(txtCod_ventaFK.getText());
+
+        if (funcion2.totalRegistros == 0) {
+            funcion.eliminar(datos);
+            JOptionPane.showMessageDialog(null, "Venta eliminada ya que no posee registros");
+        } else if (importe == 0) {
+            JOptionPane.showMessageDialog(null, "Realizo una venta sin INGRESAR IMPORTE");
+            txtImporte.requestFocus();
+            return;
+        }
+
+        this.setClosable(true);
+        txtImporte.setText("0");
+        txtImporte.setEditable(true);
+
+        txtDescuento.setText("0");
+        txtDescuento.setEditable(true);
+        txtNumFactura.setText("");
+        txtStockDetalle.setText("");
+        txtCod_venta.setText("");
+        txtCod_ventaFK.setText("");
+        txtCod_detalle.setText("");
+
+        txtTotal_venta.setText("0");
+        txtSubTotal.setText("0");
+        txtCambio.setText("0");
+        txtCod_producto.setText("");
+        txtCod_producto.setEditable(false);
+        txtNombre_producto.setText("");
+        txtPrecio_producto.setText("");
+        txtCantidadProducto.setText("");
+        btnGuardar.setEnabled(true);
+        txtNumFactura.setText("");
+        btnNuevo.setEnabled(false);
+
+        txtNombre_cliente.setText("Cliente General");
+        txtCod_cliente.setText("2");
+
+        cboComprobante.setSelectedIndex(0);
+        mostrar("0");
+
+        btnQuitarProducto.setEnabled(false);
+        btnbuscarProducto.setEnabled(false);
+        btnAgregarProducto.setEnabled(false);
+        btnCalcular.setEnabled(false);
+        } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+        }
 
     }//GEN-LAST:event_btnCalcularActionPerformed
 
@@ -1839,6 +1910,10 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         }
     }//GEN-LAST:event_txtCantidadProductoKeyPressed
+
+    private void txtImporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtImporteActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

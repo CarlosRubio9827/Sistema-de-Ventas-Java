@@ -361,7 +361,7 @@
                       <Color blue="cf" green="cf" red="cf" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/ImagenesForm/guardar.png"/>
+                      <Image iconType="3" name="/ImagenesForm/iniciarCompra.png"/>
                     </Property>
                     <Property name="mnemonic" type="int" value="120"/>
                     <Property name="text" type="java.lang.String" value="Iniciar "/>
@@ -627,6 +627,7 @@
                         </Property>
                       </Properties>
                       <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtImporteActionPerformed"/>
                         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtImporteKeyTyped"/>
                       </Events>
                     </Component>

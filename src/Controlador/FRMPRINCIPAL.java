@@ -1,6 +1,6 @@
 package Controlador;
 
-import Controlador.rptVentasFechas.comprobar;
+import static Controlador.rptVentasFechas.comprobar;
 import ControladorMINI.FrmPrincipalMINI;
 import Funciones.conexion;
 import Reportes.ReportHistorial;
@@ -36,8 +36,8 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
     public FRMPRINCIPAL() {
 
         initComponents();
-
-        JmIControlVentas.setVisible(false);
+        
+        JmIControlInv.setVisible(false);
         // jmIVenta.setMnemonic(KeyEvent.VK_V);
         this.setLocationRelativeTo(null);
         lblCod_persona.setVisible(false);
@@ -626,8 +626,8 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
             form.setMaximum(false);
             form.setClosable(true);
             form.setIconifiable(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "ERROR ");
+        } catch (PropertyVetoException e) {
+            JOptionPane.showMessageDialog(null, "ERROR " + e.getMessage());
         }
 
         this.setLocationRelativeTo(null);
