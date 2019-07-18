@@ -360,12 +360,12 @@ public class FrmLogin extends javax.swing.JFrame {
                     }
                     a = sb.toString();
                     System.out.println(a);
-                    if (a.equalsIgnoreCase("20-16-D8-EE-7C-43") || a.equalsIgnoreCase("20-89-84-39-11-FB")) {
+//                    if (a.equalsIgnoreCase("20-16-D8-EE-7C-43") || a.equalsIgnoreCase("20-89-84-39-11-FB")) {
                         new FrmLogin().setVisible(true);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No esta autorizado para usar este programa");
-                        System.exit(0);
-                    }
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "No esta autorizado para usar este programa");
+//                        System.exit(0);
+//                    }
 
                 } catch (HeadlessException | SocketException | UnknownHostException e) {
 

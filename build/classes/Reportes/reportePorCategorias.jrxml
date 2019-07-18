@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="882e0fa4-5001-4764-91dd-38d2e857f18c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="9"/>
 	<parameter name="fecha_inicio" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -33,8 +33,8 @@
 	<field name="descripcion_categoria" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="SubTotalPVenta" class="java.math.BigDecimal"/>
-	<field name="SubTotalPCompra" class="java.math.BigDecimal"/>
+	<field name="SubTotalPVenta" class="java.lang.Long"/>
+	<field name="SubTotalPCompra" class="java.lang.Long"/>
 	<variable name="n_categorias" class="java.lang.Long" calculation="Count">
 		<variableExpression><![CDATA[$F{nom_categoria}]]></variableExpression>
 	</variable>
@@ -43,6 +43,9 @@
 	</variable>
 	<variable name="tot_compras" class="java.lang.Long" calculation="Sum">
 		<variableExpression><![CDATA[$F{SubTotalPCompra}]]></variableExpression>
+	</variable>
+	<variable name="ganancia" class="java.lang.Long" calculation="Lowest">
+		<variableExpression><![CDATA[$F{SubTotalPVenta}-$F{SubTotalPCompra}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -102,14 +105,14 @@
 				<text><![CDATA[Nombre Categoria ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="296" y="10" width="100" height="15" uuid="e6d4cf1a-6a89-4d3b-9e7c-f48a1ffabe54"/>
+				<reportElement x="228" y="10" width="100" height="15" uuid="e6d4cf1a-6a89-4d3b-9e7c-f48a1ffabe54"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
 				<text><![CDATA[Valor total Compras]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="396" y="10" width="100" height="15" uuid="d9a38db6-f96d-4372-ac06-9997dedff675"/>
+				<reportElement x="355" y="9" width="100" height="15" uuid="d9a38db6-f96d-4372-ac06-9997dedff675"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
@@ -122,11 +125,18 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="111" y="10" width="185" height="15" uuid="956e2d06-6cf2-4f6f-a16b-2b0e4641c447"/>
+				<reportElement x="455" y="9" width="100" height="15" uuid="774f251e-3c2c-4764-94ef-59bd8638aa01"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="10"/>
 				</textElement>
-				<text><![CDATA[Descripcion]]></text>
+				<text><![CDATA[Ganancia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="9" width="100" height="15" uuid="21412fe6-1258-4d67-8830-f96b8160cff5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<text><![CDATA[Descripciòn]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -139,26 +149,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nom_categoria}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="396" y="0" width="100" height="15" uuid="42b0e88b-d462-4198-a0b4-5f0c778814cd"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{SubTotalPVenta}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="14" width="555" height="1" uuid="c40db2bc-083d-433a-91a0-a2a58053b37d"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField>
-				<reportElement x="296" y="0" width="100" height="15" uuid="46ac60b2-395f-4bb4-a410-716ebcd80a21"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{SubTotalPCompra}]]></textFieldExpression>
-			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="111" y="0" width="185" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="c8307cb0-7e55-4695-8782-33bfff07fb43"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
@@ -166,6 +162,27 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descripcion_categoria}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="228" y="0" width="110" height="15" uuid="46ac60b2-395f-4bb4-a410-716ebcd80a21"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SubTotalPCompra}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="355" y="0" width="100" height="15" uuid="42b0e88b-d462-4198-a0b4-5f0c778814cd"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SubTotalPVenta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="467" y="0" width="88" height="15" uuid="0141ca0d-a6cb-4196-8422-7576e544f2c0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ganancia}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
