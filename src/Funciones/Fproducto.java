@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -69,19 +71,21 @@ public class Fproducto {
 
         DefaultTableModel modelo;
 
-        String[] titulos = {"codigo","Nombre", "Descripcion", "Inversion", "Ganacia","Stock Actual" ,"Total"};
+        String[] titulos = {"codigo","Nombre", "Descripcion", "Inversion", "Stock Actual" ,"Ganacia","Total"};
 
-        String[] registros = new String[6];
+        String[] registros = new String[7];
         totalRegistros2 = 0;
         modelo = new DefaultTableModel(null, titulos);
 
         sSQL2 = "SELECT "
+                + "d.cod_producto, "
                 + "d.nombre_producto, "
-                + "d.descripcion_categoria, "
+                + "d.descripcion_producto, "
                 + "sum(d.precio_compra*d.stock_producto) as inversion, "
+                + "sum(d.stock_producto) as stockActual,"
                 + "(sum(d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto)) as ganancia, "
                 + "sum(d.precio_compra*d.stock_producto + d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto) as total "
-                + "FROM producto d order by asc";
+                + "FROM producto d GROUP by d.cod_producto";
 
         try {
 
@@ -90,17 +94,17 @@ public class Fproducto {
 
             while (rs.next()) {
             
-                registros[0] = rs.getString("cod_categoria");
-                registros[1] = rs.getString("nombre_categoria");
-                registros[2] = rs.getString("descripcion_categoria");
+                registros[0] = rs.getString("cod_producto");
+                registros[1] = rs.getString("nombre_producto");
+                registros[2] = rs.getString("descripcion_producto");
                 registros[3] = rs.getString("inversion");
-                registros[4] = rs.getString("ganancia");
-                registros[5] = rs.getString("total");
+                registros[4] = rs.getString("stockActual");
+                registros[5] = rs.getString("ganancia");
+                registros[6] = rs.getString("total");
 
                 System.out.println();
                 totalRegistros2 = totalRegistros2 + 1;
                 modelo.addRow(registros);
-                 System.out.println(registros);
             }
 
             cn.close();
@@ -113,6 +117,67 @@ public class Fproducto {
     }
     
     
+    public String totalInversion(){
+        try {
+            sSQL = "SELECT SUM(d.precio_compra*d.stock_producto)as precio FROM producto d";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            rs.next();
+            String val = rs.getString("precio");
+            return val;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            return ("error" + ex.getMessage());
+        }
+    }
+    
+     public String totalGanancia(){
+        try {
+            sSQL = "SELECT (sum(d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto)) as ganancia FROM producto d";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            rs.next();
+            String val = rs.getString("ganancia");
+            return val;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            return ("error" + ex.getMessage());
+        }
+    }
+    
+     
+     public String totalStock(){
+        try {
+            sSQL = "SELECT (sum(d.stock_producto)) as stock FROM producto d";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            rs.next();
+            String val = rs.getString("stock");
+            return val;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            return ("error" + ex.getMessage());
+        }
+    }
+     
+     
+       public String totalTienda(){
+        try {
+            sSQL = "SELECT sum(d.precio_compra*d.stock_producto + d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto) as total FROM producto d";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            rs.next();
+            String val = rs.getString("total");
+            return val;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            return ("error" + ex.getMessage());
+        }
+    }
     
     
 
