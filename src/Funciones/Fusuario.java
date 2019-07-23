@@ -83,9 +83,9 @@ public class Fusuario {
         sSQL = "insert into persona (nombre_persona,direccion,telefono,email,contacto,cel_contacto,correo_contacto)"
                 + " values (?,?,?,?,?,?,?)";
 
-        sSQL2 = "insert into usuario (cod_usuario,rut_usuario,login,password,estado,acceso)"
+        sSQL2 = "insert into usuario (cod_usuario,rut_usuario,login,password,estado,acceso,descuento)"
                 + " values ((select cod_persona from persona order by cod_persona desc limit 1)"
-                + " ,?,?,?,?,?)";
+                + " ,?,?,?,?,?,?)";
         try {
 
             PreparedStatement pst = cn.prepareStatement(sSQL);
@@ -105,6 +105,8 @@ public class Fusuario {
             pst2.setString(3, datos.getPassword());
             pst2.setString(4, datos.getEstado());
             pst2.setString(5, datos.getAcceso());
+            pst2.setInt(6, datos.getDescuento());
+            
 
             int N = pst.executeUpdate();
             int N2 = pst2.executeUpdate();

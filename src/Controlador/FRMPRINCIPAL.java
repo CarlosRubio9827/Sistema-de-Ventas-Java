@@ -121,6 +121,9 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         JmIControlVentas = new javax.swing.JMenuItem();
         jMIAyuda = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(36, 33, 33));
@@ -451,6 +454,26 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
             }
         });
         menuBar.add(jMenu5);
+
+        jMenu1.setText("Ganancias maximas");
+
+        jMenuItem1.setText("Categoria");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Productos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        menuBar.add(jMenu1);
 
         setJMenuBar(menuBar);
 
@@ -786,6 +809,42 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
 
     }//GEN-LAST:event_JmIHistorialActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       FrmGananciasMaxProductos form = new FrmGananciasMaxProductos();
+    
+        deskPricipal.add(form);
+
+        form.setClosable(true);
+        form.setIconifiable(true);
+        try {
+            form.setMaximum(true);
+        } catch (Exception e) {
+        }
+
+        form.toFront();
+        form.setVisible(true);
+        
+       
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        FrmGananciasMaxCategoria form = new FrmGananciasMaxCategoria();
+    
+        deskPricipal.add(form);
+
+        form.setClosable(true);
+        form.setIconifiable(true);
+        try {
+            form.setMaximum(true);
+        } catch (Exception e) {
+        }
+
+        form.toFront();
+        form.setVisible(true);
+        this.setLocationRelativeTo(null);
+       
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -838,7 +897,10 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
     public static javax.swing.JMenu MenuProductos;
     public static javax.swing.JDesktopPane deskPricipal;
     javax.swing.JMenu jMIAyuda;
+    javax.swing.JMenu jMenu1;
     public static javax.swing.JMenu jMenu5;
+    javax.swing.JMenuItem jMenuItem1;
+    javax.swing.JMenuItem jMenuItem2;
     public static javax.swing.JMenu jmIVenta;
     javax.swing.JMenuItem jmIVentas;
     public static javax.swing.JLabel lblAcceso;

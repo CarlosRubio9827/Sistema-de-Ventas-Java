@@ -16,7 +16,9 @@ public class Fproducto {
     private Connection cn = mysql.conectar();
 
     private String sSQL = "";
+    private String sSQL2 = "";
     public Integer totalRegistros;
+     public Integer totalRegistros2;
 
     public DefaultTableModel mostrar(String buscar) {
 
@@ -61,6 +63,58 @@ public class Fproducto {
         }
 
     }
+    
+    
+     public DefaultTableModel mostrar2() {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"codigo","Nombre", "Descripcion", "Inversion", "Ganacia","Stock Actual" ,"Total"};
+
+        String[] registros = new String[6];
+        totalRegistros2 = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSQL2 = "SELECT "
+                + "d.nombre_producto, "
+                + "d.descripcion_categoria, "
+                + "sum(d.precio_compra*d.stock_producto) as inversion, "
+                + "(sum(d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto)) as ganancia, "
+                + "sum(d.precio_compra*d.stock_producto + d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto) as total "
+                + "FROM producto d order by asc";
+
+        try {
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL2);
+
+            while (rs.next()) {
+            
+                registros[0] = rs.getString("cod_categoria");
+                registros[1] = rs.getString("nombre_categoria");
+                registros[2] = rs.getString("descripcion_categoria");
+                registros[3] = rs.getString("inversion");
+                registros[4] = rs.getString("ganancia");
+                registros[5] = rs.getString("total");
+
+                System.out.println();
+                totalRegistros2 = totalRegistros2 + 1;
+                modelo.addRow(registros);
+                 System.out.println(registros);
+            }
+
+            cn.close();
+            return modelo;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            return null;
+        }
+
+    }
+    
+    
+    
+    
 
     public boolean insertar(Dproducto datos,String nombre) {
 
