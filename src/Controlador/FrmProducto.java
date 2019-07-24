@@ -761,6 +761,17 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
             txtPrecio_compra.requestFocus();
             return;
         }
+        
+        int precioCompra = Integer.parseInt(txtPrecio_compra.getText());
+        int precioVenta  = Integer.parseInt(txtPrecio.getText());
+        
+        
+        
+          if (precioCompra > precioVenta) {
+            JOptionPane.showMessageDialog(null, "El precio de VENTA debe de ser mayor que el precio de Compra");
+            txtPrecio.requestFocus();
+            return;
+        }
 
         if (jComboBox1.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(null, "DEBES IR A CATEGORIAS EN EL MENU E INGRESAR UNA");
