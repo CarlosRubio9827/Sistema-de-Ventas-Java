@@ -32,7 +32,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableRowSorter;
 
 import jxl.Workbook;
 import jxl.write.Label;
@@ -73,6 +75,8 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                 return l;
             }
         });
+        
+        
     }
 
     public FrmProducto(File file, List<JTable> tabla, List<String> nom_files)
@@ -181,6 +185,8 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                 modelo = funcion.mostrarPorCodigo(buscar);
             } else {
                 modelo = funcion.mostrar(buscar);
+                jTabla.setRowSorter(new TableRowSorter(modelo));
+
             }
 
             jTabla.setModel(modelo);
@@ -218,6 +224,8 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -759,6 +767,17 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
         if (txtPrecio_compra.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Debes ingresar un Precio de compra");
             txtPrecio_compra.requestFocus();
+            return;
+        }
+        
+        int precioCompra = Integer.parseInt(txtPrecio_compra.getText());
+        int precioVenta  = Integer.parseInt(txtPrecio.getText());
+        
+        
+        
+          if (precioCompra > precioVenta) {
+            JOptionPane.showMessageDialog(null, "El precio de VENTA debe de ser mayor que el precio de Compra");
+            txtPrecio.requestFocus();
             return;
         }
 

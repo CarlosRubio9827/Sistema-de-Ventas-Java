@@ -877,6 +877,7 @@ public final class FrmUsuario extends javax.swing.JInternalFrame {
         datos.setRut_usuario(txtRut.getText());
         datos.setLogin(txtLogin.getText());
         datos.setPassword(txtPassword.getText());
+        datos.setDescuento(0);
 
         int estado = cboEstado.getSelectedIndex();
         datos.setEstado((String) cboEstado.getItemAt(estado));

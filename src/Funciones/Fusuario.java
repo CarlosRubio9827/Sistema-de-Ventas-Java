@@ -63,8 +63,8 @@ public class Fusuario {
             }
             return modelo;
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             return null;
         }
 
@@ -106,6 +106,7 @@ public class Fusuario {
             pst2.setString(4, datos.getEstado());
             pst2.setString(5, datos.getAcceso());
             pst2.setInt(6, datos.getDescuento());
+
 
             int N = pst.executeUpdate();
             int N2 = pst2.executeUpdate();

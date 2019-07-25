@@ -115,11 +115,14 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         JmIProdVendFEc = new javax.swing.JMenuItem();
         JmITotalRecaudacion = new javax.swing.JMenuItem();
         JmIVentasPorCategorias = new javax.swing.JMenuItem();
-        JmIHistorial = new javax.swing.JMenuItem();
         JmiHerramientas = new javax.swing.JMenu();
         JmIControlInv = new javax.swing.JMenuItem();
         JmIControlVentas = new javax.swing.JMenuItem();
+        JmIHistorial = new javax.swing.JMenuItem();
         jMIAyuda = new javax.swing.JMenu();
+        MenuInformes1 = new javax.swing.JMenu();
+        JmIStockCritico1 = new javax.swing.JMenuItem();
+        JmIVentasPorFecha1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -369,19 +372,6 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         });
         MenuInformes.add(JmIVentasPorCategorias);
 
-        JmIHistorial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.SHIFT_MASK));
-        JmIHistorial.setBackground(new java.awt.Color(36, 33, 33));
-        JmIHistorial.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        JmIHistorial.setForeground(new java.awt.Color(255, 255, 255));
-        JmIHistorial.setText("Historial de modificacion de Stock de productos");
-        JmIHistorial.setOpaque(true);
-        JmIHistorial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JmIHistorialActionPerformed(evt);
-            }
-        });
-        MenuInformes.add(JmIHistorial);
-
         menuBar.add(MenuInformes);
 
         JmiHerramientas.setBackground(new java.awt.Color(36, 33, 33));
@@ -418,6 +408,19 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         });
         JmiHerramientas.add(JmIControlVentas);
 
+        JmIHistorial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.SHIFT_MASK));
+        JmIHistorial.setBackground(new java.awt.Color(36, 33, 33));
+        JmIHistorial.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        JmIHistorial.setForeground(new java.awt.Color(255, 255, 255));
+        JmIHistorial.setText("Historial de modificacion de Stock de productos");
+        JmIHistorial.setOpaque(true);
+        JmIHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmIHistorialActionPerformed(evt);
+            }
+        });
+        JmiHerramientas.add(JmIHistorial);
+
         menuBar.add(JmiHerramientas);
 
         jMIAyuda.setBackground(new java.awt.Color(36, 33, 33));
@@ -431,6 +434,40 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
             }
         });
         menuBar.add(jMIAyuda);
+
+        MenuInformes1.setBackground(new java.awt.Color(36, 33, 33));
+        MenuInformes1.setForeground(new java.awt.Color(245, 245, 245));
+        MenuInformes1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImanegesMenuBar/reporteMenu.png"))); // NOI18N
+        MenuInformes1.setText("Ganancias Maximas");
+        MenuInformes1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        MenuInformes1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        MenuInformes1.setOpaque(true);
+
+        JmIStockCritico1.setBackground(new java.awt.Color(36, 33, 33));
+        JmIStockCritico1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        JmIStockCritico1.setForeground(new java.awt.Color(255, 255, 255));
+        JmIStockCritico1.setText("Categoria");
+        JmIStockCritico1.setOpaque(true);
+        JmIStockCritico1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmIStockCritico1ActionPerformed(evt);
+            }
+        });
+        MenuInformes1.add(JmIStockCritico1);
+
+        JmIVentasPorFecha1.setBackground(new java.awt.Color(36, 33, 33));
+        JmIVentasPorFecha1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        JmIVentasPorFecha1.setForeground(new java.awt.Color(255, 255, 255));
+        JmIVentasPorFecha1.setText("Productos");
+        JmIVentasPorFecha1.setOpaque(true);
+        JmIVentasPorFecha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmIVentasPorFecha1ActionPerformed(evt);
+            }
+        });
+        MenuInformes1.add(JmIVentasPorFecha1);
+
+        menuBar.add(MenuInformes1);
 
         jMenu5.setBackground(new java.awt.Color(36, 33, 33));
         jMenu5.setForeground(new java.awt.Color(245, 245, 245));
@@ -462,7 +499,7 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, deskPricipal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, deskPricipal, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
         );
 
         pack();
@@ -786,6 +823,43 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
 
     }//GEN-LAST:event_JmIHistorialActionPerformed
 
+    private void JmIVentasPorFecha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmIVentasPorFecha1ActionPerformed
+          FrmGananciasMaxProductos form = new FrmGananciasMaxProductos();
+    
+        deskPricipal.add(form);
+
+        form.setClosable(true);
+        form.setIconifiable(true);
+
+        form.setMaximizable(false);
+        form.setResizable(false);
+
+        form.toFront();
+        form.setVisible(true);
+        this.setLocationRelativeTo(null);
+
+        this.setExtendedState(MAXIMIZED_BOTH);
+    }//GEN-LAST:event_JmIVentasPorFecha1ActionPerformed
+
+    private void JmIStockCritico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmIStockCritico1ActionPerformed
+        FrmGananciasMaxCategoria form = new FrmGananciasMaxCategoria();
+
+        deskPricipal.add(form);
+
+        form.setClosable(true);
+        form.setIconifiable(true);
+
+        form.setMaximizable(false);
+        form.setResizable(false);
+
+        form.toFront();
+        form.setVisible(true);
+        this.setLocationRelativeTo(null);
+
+        this.setExtendedState(MAXIMIZED_BOTH);
+
+    }//GEN-LAST:event_JmIStockCritico1ActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -828,12 +902,15 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
     javax.swing.JMenuItem JmIStock;
     javax.swing.JMenuItem JmIStock1;
     javax.swing.JMenuItem JmIStockCritico;
+    javax.swing.JMenuItem JmIStockCritico1;
     javax.swing.JMenuItem JmITotalRecaudacion;
     public static javax.swing.JMenuItem JmIUsuarios;
     javax.swing.JMenuItem JmIVentasPorCategorias;
     javax.swing.JMenuItem JmIVentasPorFecha;
+    javax.swing.JMenuItem JmIVentasPorFecha1;
     public static javax.swing.JMenu JmiHerramientas;
     public static javax.swing.JMenu MenuInformes;
+    public static javax.swing.JMenu MenuInformes1;
     public static javax.swing.JMenu MenuPersonal;
     public static javax.swing.JMenu MenuProductos;
     public static javax.swing.JDesktopPane deskPricipal;

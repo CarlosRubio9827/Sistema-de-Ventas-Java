@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,7 +18,9 @@ public class Fproducto {
     private Connection cn = mysql.conectar();
 
     private String sSQL = "";
+    private String sSQL2 = "";
     public Integer totalRegistros;
+     public Integer totalRegistros2;
 
     public DefaultTableModel mostrar(String buscar) {
 
@@ -33,7 +37,7 @@ public class Fproducto {
         totalRegistros = 0;
         modelo = new DefaultTableModel(null, titulos);
 
-        sSQL = "select cod_producto , nombre_producto , descripcion_producto ,  Replace(Format(precio_producto, 0), ',', '.') as precio_producto , stock_producto , Replace(Format(precio_compra, 0), ',', '.') as precio_compra ,(select nombre_categoria from categoria where  cod_categoria =cod_categoriaFK) as nombre_categoria from producto where nombre_producto like '%" + buscar + "%' order by cod_producto desc";
+        sSQL = "select cod_producto , nombre_producto , descripcion_producto ,  Replace(Format(precio_producto, 0), ',', '.') as precio_producto , stock_producto , Replace(Format(precio_compra, 0), ',', '.') as precio_compra ,(select nombre_categoria from categoria where  cod_categoria =cod_categoriaFK) as nombre_categoria from producto where nombre_producto like '%" + buscar + "%' order by nombre_producto desc";
 
         try {
 
@@ -55,12 +59,127 @@ public class Fproducto {
             }
             return modelo;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return null;
         }
 
     }
+    
+    
+     public DefaultTableModel mostrar2() {
+
+        DefaultTableModel modelo;
+
+        String[] titulos = {"codigo","Nombre", "Descripcion", "Inversion", "Stock Actual" ,"Ganacia","Total"};
+
+        String[] registros = new String[7];
+        totalRegistros2 = 0;
+        modelo = new DefaultTableModel(null, titulos);
+
+        sSQL2 = "SELECT "
+                + "d.cod_producto, "
+                + "d.nombre_producto, "
+                + "d.descripcion_producto, "
+                + "sum(d.precio_compra*d.stock_producto) as inversion, "
+                + "sum(d.stock_producto) as stockActual,"
+                + "(sum(d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto)) as ganancia, "
+                + "sum(d.precio_compra*d.stock_producto + d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto) as total "
+                + "FROM producto d GROUP by d.nombre_producto";
+
+        try {
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL2);
+
+            while (rs.next()) {
+            
+                registros[0] = rs.getString("cod_producto");
+                registros[1] = rs.getString("nombre_producto");
+                registros[2] = rs.getString("descripcion_producto");
+                registros[3] = rs.getString("inversion");
+                registros[4] = rs.getString("stockActual");
+                registros[5] = rs.getString("ganancia");
+                registros[6] = rs.getString("total");
+
+                System.out.println();
+                totalRegistros2 = totalRegistros2 + 1;
+                modelo.addRow(registros);
+            }
+
+            cn.close();
+            return modelo;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+            return null;
+        }
+
+    }
+    
+    
+    public String totalInversion(){
+        try {
+            sSQL = "SELECT SUM(d.precio_compra*d.stock_producto)as precio FROM producto d";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            rs.next();
+            String val = rs.getString("precio");
+            return val;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            return ("error" + ex.getMessage());
+        }
+    }
+    
+     public String totalGanancia(){
+        try {
+            sSQL = "SELECT (sum(d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto)) as ganancia FROM producto d";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            rs.next();
+            String val = rs.getString("ganancia");
+            return val;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            return ("error" + ex.getMessage());
+        }
+    }
+    
+     
+     public String totalStock(){
+        try {
+            sSQL = "SELECT (sum(d.stock_producto)) as stock FROM producto d";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            rs.next();
+            String val = rs.getString("stock");
+            return val;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            return ("error" + ex.getMessage());
+        }
+    }
+     
+     
+       public String totalTienda(){
+        try {
+            sSQL = "SELECT sum(d.precio_compra*d.stock_producto + d.precio_producto*d.stock_producto - d.precio_compra*d.stock_producto) as total FROM producto d";
+            
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            rs.next();
+            String val = rs.getString("total");
+            return val;
+        } catch (SQLException ex) {
+            Logger.getLogger(Fcategoria.class.getName()).log(Level.SEVERE, null, ex);
+            return ("error" + ex.getMessage());
+        }
+    }
+    
+    
 
     public boolean insertar(Dproducto datos,String nombre) {
 
