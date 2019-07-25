@@ -93,8 +93,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         btnClick.setVisible(false);
 
-        txtNumFactura.setEditable(false);
-        txtNumFactura.setText("0");
+        
         btnBuscarCliente.requestFocus();
 
         txtSubPrecioCompra.setVisible(false);
@@ -178,7 +177,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         String format = formateador.format(Nfactura);
 
-        txtNumFactura.setText(String.valueOf(format));
 
     }
 
@@ -366,12 +364,10 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         dcFecha_venta = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         cboComprobante = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtNombre_cliente = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txtNumFactura = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnBuscarCliente = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -457,11 +453,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(207, 207, 207));
-        jLabel4.setText("N° :");
-
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(207, 207, 207));
@@ -490,18 +481,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(207, 207, 207));
         jLabel1.setText("    Tipo :");
-
-        txtNumFactura.setBackground(new java.awt.Color(36, 33, 33));
-        txtNumFactura.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        txtNumFactura.setForeground(new java.awt.Color(207, 207, 207));
-        txtNumFactura.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(207, 207, 207)));
-        txtNumFactura.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtNumFactura.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtNumFactura.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNumFacturaKeyTyped(evt);
-            }
-        });
 
         btnNuevo.setBackground(new java.awt.Color(36, 33, 33));
         btnNuevo.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -534,19 +513,14 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcFecha_venta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dcFecha_venta, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                     .addComponent(cboComprobante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtNombre_cliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNumFactura))
+                .addComponent(txtNombre_cliente, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -572,11 +546,8 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                             .addComponent(btnBuscarCliente))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel1)
-                                    .addComponent(txtNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel1)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
@@ -1169,7 +1140,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         int comprobante = cboComprobante.getSelectedIndex();
         datos.setTipo_comprobante((String) cboComprobante.getItemAt(comprobante));
-        datos.setNum_factura(Integer.parseInt(txtNumFactura.getText()));
         datos.setDescuento(Integer.parseInt(txtDescuento.getText()));
         datos.setPago(Long.parseLong(txtImporte.getText()));
 
@@ -1465,15 +1435,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboComprobanteItemStateChanged
 
     private void cboComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboComprobanteActionPerformed
-        if (cboComprobante.getSelectedItem() == "Factura") {
-            NfacturaAtxt();
-            txtNumFactura.setEditable(true);
-
-        } else {
-
-            txtNumFactura.setEditable(false);
-            txtNumFactura.setText("0");
-        }
+      
     }//GEN-LAST:event_cboComprobanteActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
@@ -1592,7 +1554,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         txtDescuento.setText("0");
         txtDescuento.setEditable(true);
-        txtNumFactura.setText("");
         txtStockDetalle.setText("");
         txtCod_venta.setText("");
         txtCod_ventaFK.setText("");
@@ -1607,7 +1568,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtPrecio_producto.setText("");
         txtCantidadProducto.setText("");
         btnGuardar.setEnabled(true);
-        txtNumFactura.setText("");
         btnNuevo.setEnabled(false);
 
         txtNombre_cliente.setText("Cliente General");
@@ -1660,7 +1620,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
 
         txtDescuento.setText("0");
         txtDescuento.setEditable(true);
-        txtNumFactura.setText("");
         txtStockDetalle.setText("");
         txtCod_venta.setText("");
         txtCod_ventaFK.setText("");
@@ -1675,7 +1634,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
         txtPrecio_producto.setText("");
         txtCantidadProducto.setText("");
         btnGuardar.setEnabled(true);
-        txtNumFactura.setText("");
         btnNuevo.setEnabled(false);
 
         txtNombre_cliente.setText("Cliente General");
@@ -1709,13 +1667,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtCantidadProductoKeyTyped
-
-    private void txtNumFacturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumFacturaKeyTyped
-        char c = evt.getKeyChar();
-        if (((c < '0') || (c > '9')) && (c != evt.VK_BACK_SPACE)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNumFacturaKeyTyped
 
     private void txtDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescuentoKeyTyped
         char c = evt.getKeyChar();
@@ -1987,7 +1938,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2015,7 +1965,6 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField txtNombre_cliente;
     public static javax.swing.JTextField txtNombre_producto;
     public static javax.swing.JLabel txtNombre_usuario;
-    private javax.swing.JTextField txtNumFactura;
     public static javax.swing.JTextField txtPrecio_producto;
     public static javax.swing.JTextField txtStockDetalle;
     public static javax.swing.JTextField txtSubPrecioCompra;

@@ -883,6 +883,7 @@ public final class FrmUsuario extends javax.swing.JInternalFrame {
 
         int acceso = cboAcceso.getSelectedIndex();
         datos.setAcceso((String) cboAcceso.getItemAt(acceso));
+        datos.setDescuento(0);
 
         if (funcion.insertar(datos)) {
             JOptionPane.showMessageDialog(null, "El trabajador fue ingresado al sistema");

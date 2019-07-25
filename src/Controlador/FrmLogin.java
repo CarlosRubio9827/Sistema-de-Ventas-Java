@@ -345,6 +345,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
 
                 try {
@@ -360,10 +361,10 @@ public class FrmLogin extends javax.swing.JFrame {
                     }
                     a = sb.toString();
                     System.out.println(a);
-                    if (a.equalsIgnoreCase("20-16-D8-EE-7C-43") || a.equalsIgnoreCase("20-89-84-39-11-FB")) {
+                    if (a.equalsIgnoreCase("70-1A-04-8F-89-59")) {
                         new FrmLogin().setVisible(true);
                     } else {
-                        JOptionPane.showMessageDialog(null, "No esta autorizado para usar este programa");
+                        JOptionPane.showMessageDialog(null, "No está autorizado para usar este programa");
                         System.exit(0);
                     }
 

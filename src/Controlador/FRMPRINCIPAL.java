@@ -211,7 +211,7 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         JmIUsuarios.setBackground(new java.awt.Color(36, 33, 33));
         JmIUsuarios.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         JmIUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        JmIUsuarios.setText("Usuarios");
+        JmIUsuarios.setText("Empleados");
         JmIUsuarios.setOpaque(true);
         JmIUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
