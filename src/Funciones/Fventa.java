@@ -6,6 +6,7 @@ import Datos.Dventa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -58,7 +59,7 @@ public class Fventa {
             }
             return modelo;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showConfirmDialog(null, e);
             return null;
         }
@@ -72,9 +73,7 @@ public class Fventa {
                 + "values(?,?,?,?,?,?,?,?)";
 
         try {
-
             PreparedStatement pst = cn.prepareStatement(sSQL);
-
             pst.setDate(1, datos.getFecha_venta());
             pst.setLong(2, datos.getTotal_venta());
             pst.setInt(3, datos.getCod_usuarioFK());
@@ -84,15 +83,10 @@ public class Fventa {
             pst.setInt(7, datos.getDescuento());
             pst.setLong(8, datos.getPago());
             int N = pst.executeUpdate();
-            if (N != 0) {
-                return true;
-            } else {
+            return N != 0;
 
-                return false;
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "FAllo");
             return false;
         }
 

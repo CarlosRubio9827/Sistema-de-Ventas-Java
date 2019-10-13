@@ -3,6 +3,7 @@ package Controlador;
 import Datos.Dusuario;
 import Funciones.Fusuario;
 import java.awt.HeadlessException;
+import java.beans.PropertyVetoException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -12,19 +13,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmLogin extends javax.swing.JFrame {
+public final class FrmLogin extends javax.swing.JFrame {
  
     public FrmLogin() {
         initComponents();
-
+//z3j53y
         ContarUsuarios();
         jScrollPane1.setVisible(false);
         this.setLocationRelativeTo(null);
-        btnIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent e) {
-              btnIngresarActionPerformed(null);
-            }
-         });
+        /*btnIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
+        @Override
+        public void keyPressed(java.awt.event.KeyEvent e) {
+        btnIngresarActionPerformed(null);
+        }
+        });*/
       }
     public void ContarUsuarios() {
 
@@ -39,6 +41,7 @@ public class FrmLogin extends javax.swing.JFrame {
             form.setVisible(true);
             form.setLocationRelativeTo(null);
         }//cierre
+
     }
 
     @SuppressWarnings("unchecked")
@@ -272,7 +275,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     FrmVentaDetalle.txtCod_usuario.setText(tablalistado.getValueAt(0, 0).toString());
                     FrmVentaDetalle.txtNombre_usuario.setText(tablalistado.getValueAt(0, 1).toString());
                     form2.setMaximum(true);
-                } catch (Exception e) {
+                } catch (PropertyVetoException e) {
                     JOptionPane.showMessageDialog(null, "ERROR " + e);
                 }
 
@@ -362,7 +365,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     a = sb.toString();
                     System.out.println(a);
 
-                    if (a.equalsIgnoreCase("70-1A-04-8F-89-59")) {
+                    if (a.equalsIgnoreCase("20-1A-06-86-86-47") || a.equalsIgnoreCase("0A-00-27-00-00-13")) {
                         new FrmLogin().setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "No está autorizado para usar este programa");
@@ -370,7 +373,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     }
 
 //                    if (a.equalsIgnoreCase("20-16-D8-EE-7C-43") || a.equalsIgnoreCase("20-89-84-39-11-FB")) {
-                        new FrmLogin().setVisible(true);
+//                      new FrmLogin().setVisible(true);
 //                    } else {
 //                        JOptionPane.showMessageDialog(null, "No esta autorizado para usar este programa");
 //                        System.exit(0);
@@ -386,6 +389,8 @@ public class FrmLogin extends javax.swing.JFrame {
         });
     }
 
+        
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnSalir;

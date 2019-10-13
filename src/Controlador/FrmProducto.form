@@ -64,7 +64,7 @@
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jPanel1" pref="632" max="32767" attributes="0"/>
+                  <Component id="jPanel1" pref="636" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -778,7 +778,7 @@
                       <Color blue="cf" green="cf" red="cf" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/ImagenesForm/guardar.png"/>
+                      <Image iconType="3" name="/ImagenesForm/Codigobar.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Generar C&#xf3;digo de Barras"/>
                   </Properties>

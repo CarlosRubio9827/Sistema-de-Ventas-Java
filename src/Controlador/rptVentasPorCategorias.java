@@ -1,7 +1,6 @@
 package Controlador;
 
 import Funciones.conexion;
-import Reportes.ReportTotalRecaudacion;
 import Reportes.ReportVentasCategoria;
 
 import java.sql.Connection;
@@ -177,7 +176,7 @@ public class rptVentasPorCategorias extends javax.swing.JInternalFrame {
 
             parametro.put("fecha_inicio", dcFecha_Inicio.getDate());
             parametro.put("fecha_termino", dcFecha_termino.getDate());
-
+            
             JasperPrint jp = JasperFillManager.fillReport(jr, parametro, cn);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.show();

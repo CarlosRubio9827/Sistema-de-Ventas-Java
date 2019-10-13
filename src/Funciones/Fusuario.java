@@ -327,7 +327,7 @@ public class Fusuario {
 
             return codigo_venta;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
             return 0;
         }

@@ -723,7 +723,7 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel9)
                                 .addComponent(jLabel8))
                             .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1116,33 +1116,35 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
             txtImporte.requestFocus();
             return;
         }
-
+        
+        System.out.println("1");
         this.setClosable(false);
         btnNuevo.setEnabled(true);
         txtImporte.setEditable(true);
         txtDescuento.setEditable(false);
+        System.out.println("2");
         Dventa datos = new Dventa();
+        System.out.println("3");
         Fventa funcion = new Fventa();
+        System.out.println("4");
         Calendar cal;
         int d, m, a;
         cal = dcFecha_venta.getCalendar();
+        System.out.println("5");
         d = cal.get(Calendar.DAY_OF_MONTH);
         m = cal.get(Calendar.MONTH);
         a = cal.get(Calendar.YEAR) - 1900;
         datos.setFecha_venta(new Date(a, m, d));
-
         String totalVentaStr = txtTotal_venta.getText();
         String totalVentaStr2 = totalVentaStr.replaceAll("\\.", "");
         datos.setTotal_venta(Long.valueOf(totalVentaStr2));
 
         datos.setCod_usuarioFK(Integer.parseInt(txtCod_usuario.getText()));
         datos.setCod_clienteFK(Integer.parseInt(txtCod_cliente.getText()));
-
         int comprobante = cboComprobante.getSelectedIndex();
         datos.setTipo_comprobante((String) cboComprobante.getItemAt(comprobante));
         datos.setDescuento(Integer.parseInt(txtDescuento.getText()));
         datos.setPago(Long.parseLong(txtImporte.getText()));
-
         if (funcion.insertar(datos)) {
             DetallesFormVentaProd();
             BuscarCodigoVenta();
@@ -1698,37 +1700,45 @@ public final class FrmVentaDetalle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCod_productoKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String s;
-        int nuevoDescuento = Integer.parseInt(txtDescuento.getText());
-        s = "update usuario set descuento = '" + nuevoDescuento + "' ";
+        
 
         try {
-            if (nuevoDescuento >= 99) {
-                JOptionPane.showMessageDialog(null, "El descuento no puede ser mayor a 99");
-            } else {
+            
+            if(txtDescuento.getText().trim().equals("")){
+                JOptionPane.showMessageDialog(null, "Digita un valor númerico");
+            }else{
+                String s;
 
-                PreparedStatement pst2 = cn.prepareStatement(s);
+             int nuevoDescuento = Integer.parseInt(txtDescuento.getText());
+             s = "update usuario set descuento = '" + nuevoDescuento + "' ";
 
-                int N2 = pst2.executeUpdate();
+             if (nuevoDescuento >= 99) {
+                 JOptionPane.showMessageDialog(null, "El descuento no puede ser mayor a 99");
+             } else {
 
-                if (N2 != 0) {
-                    JOptionPane.showMessageDialog(null, "Se establecio un descuento de: " + nuevoDescuento + "'%' en todas las ventas");
-                    System.out.println("bien");
+                 PreparedStatement pst2 = cn.prepareStatement(s);
 
-                } else {
+                 int N2 = pst2.executeUpdate();
 
-                    System.out.println("mal");
-                }
+                 if (N2 != 0) {
+                     JOptionPane.showMessageDialog(null, "Se establecio un descuento de: " + nuevoDescuento + "'%' en todas las ventas");
+                     System.out.println("bien");
 
-            }
+                 } else {
 
-        } catch (ExceptionInInitializerError e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+                     System.out.println("mal");
+                 }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(FrmVentaDetalle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+             }
+             }
+         } catch (ExceptionInInitializerError e) {
+             JOptionPane.showMessageDialog(null, e.getMessage());
 
+         } catch (SQLException ex) {
+             Logger.getLogger(FrmVentaDetalle.class.getName()).log(Level.SEVERE, null, ex);
+         }
+       
+           
 
     }//GEN-LAST:event_jButton3ActionPerformed
 

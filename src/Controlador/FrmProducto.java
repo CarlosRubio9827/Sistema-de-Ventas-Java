@@ -584,7 +584,7 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
         btnBarras.setBackground(new java.awt.Color(36, 33, 33));
         btnBarras.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnBarras.setForeground(new java.awt.Color(207, 207, 207));
-        btnBarras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesForm/guardar.png"))); // NOI18N
+        btnBarras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesForm/Codigobar.png"))); // NOI18N
         btnBarras.setText("Generar Código de Barras");
         btnBarras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -674,7 +674,7 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -967,14 +967,18 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
 
     private void btnBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarrasActionPerformed
 //Generar Código de Barras
-
-        String codigo = txtCod_producto.getText();
+    
+        
 
         try {
+            
+            String codigo = txtCod_producto.getText(); 
+            
             if (codigo.equalsIgnoreCase("")) {
                 JOptionPane.showMessageDialog(null, "Por favor seleccione un producto para generar el codigo de barras");
             } else {
-                
+                int cant = Integer.parseInt(JOptionPane.showInputDialog("Digita la cantidad de códigos que quieres generar"));
+           
                 Document doc = new Document() {
                 };
                 PdfWriter pdf = PdfWriter.getInstance(doc, new FileOutputStream("codigos.pdf"));
@@ -986,13 +990,14 @@ public final class FrmProducto extends javax.swing.JInternalFrame {
                         + "Por favor cerrar este documento despues de imprimir los códigos de barras"
                 ));
 
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < cant; i++) {
                     Barcode128 code128 = new Barcode128();
                     code128.setCode(codigo);
                     com.itextpdf.text.Image img128 = code128.createImageWithBarcode(pdf.getDirectContent(), BaseColor.BLACK , BaseColor.BLACK);
-
+                    doc.add(new Paragraph(" "));
+                    doc.add(new Paragraph(txtNombre_producto.getText()));
                     doc.add(img128);
-                    doc.add(new Paragraph("  "));
+                    doc.add(new Paragraph(" "));
                 }
 
                 doc.close();

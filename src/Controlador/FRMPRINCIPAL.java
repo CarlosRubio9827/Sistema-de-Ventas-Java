@@ -102,6 +102,8 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         jmIVenta = new javax.swing.JMenu();
         jmIVentas = new javax.swing.JMenuItem();
+        jmIVenta1 = new javax.swing.JMenu();
+        jmIVentas1 = new javax.swing.JMenuItem();
         MenuPersonal = new javax.swing.JMenu();
         JmIClientes = new javax.swing.JMenuItem();
         JmIUsuarios = new javax.swing.JMenuItem();
@@ -130,6 +132,7 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         setIconImage( new ImageIcon(getClass().getResource("/ImanegesMenuBar/LOGO.png")).getImage());
 
         deskPricipal.setBackground(new java.awt.Color(36, 33, 33));
+        deskPricipal.setForeground(new java.awt.Color(204, 204, 204));
         deskPricipal.setToolTipText("");
         deskPricipal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         deskPricipal.setOpaque(true
@@ -188,6 +191,33 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
         jmIVenta.add(jmIVentas);
 
         menuBar.add(jmIVenta);
+
+        jmIVenta1.setBackground(new java.awt.Color(36, 33, 33));
+        jmIVenta1.setForeground(new java.awt.Color(245, 245, 245));
+        jmIVenta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesForm/PrecioProd.png"))); // NOI18N
+        jmIVenta1.setText("Calcular");
+        jmIVenta1.setToolTipText("");
+        jmIVenta1.setAlignmentX(0.0F);
+        jmIVenta1.setAlignmentY(0.0F);
+        jmIVenta1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jmIVenta1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jmIVenta1.setOpaque(true
+        );
+
+        jmIVentas1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jmIVentas1.setBackground(new java.awt.Color(36, 33, 33));
+        jmIVentas1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jmIVentas1.setForeground(new java.awt.Color(255, 255, 255));
+        jmIVentas1.setText("Porcentaje Producto");
+        jmIVentas1.setOpaque(true);
+        jmIVentas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmIVentas1ActionPerformed(evt);
+            }
+        });
+        jmIVenta1.add(jmIVentas1);
+
+        menuBar.add(jmIVenta1);
 
         MenuPersonal.setBackground(new java.awt.Color(36, 33, 33));
         MenuPersonal.setForeground(new java.awt.Color(245, 245, 245));
@@ -860,6 +890,26 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
 
     }//GEN-LAST:event_JmIStockCritico1ActionPerformed
 
+    private void jmIVentas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmIVentas1ActionPerformed
+
+        FrmCalcular form = new FrmCalcular();
+        deskPricipal.add(form);
+
+        form.setClosable(true);
+        form.setIconifiable(true);
+
+        form.setMaximizable(false);
+        form.setResizable(false);
+
+        form.toFront();
+        form.setVisible(true);
+        this.setLocationRelativeTo(null);
+
+        this.setExtendedState(MAXIMIZED_BOTH);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmIVentas1ActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -917,7 +967,9 @@ public class FRMPRINCIPAL extends javax.swing.JFrame {
     javax.swing.JMenu jMIAyuda;
     public static javax.swing.JMenu jMenu5;
     public static javax.swing.JMenu jmIVenta;
+    public static javax.swing.JMenu jmIVenta1;
     javax.swing.JMenuItem jmIVentas;
+    javax.swing.JMenuItem jmIVentas1;
     public static javax.swing.JLabel lblAcceso;
     public static javax.swing.JLabel lblCod_persona;
     public static javax.swing.JLabel lblNombre_persona;
